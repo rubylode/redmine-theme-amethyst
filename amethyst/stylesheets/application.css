@@ -1,0 +1,547 @@
+/* Amethyst, a theme for Redmine 7
+ * Copyright (C) 2026  Nick Gorbikoff
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. */
+
+@import url(/application.css);
+
+/* 1. Light tokens.
+ * Redmine 7 takes its colours from the Open Color palette (--oc-gray-0 to -9, and the same ramps for each hue, each with an
+ * -rgb twin) plus a few --color-* names. Remapping those variables recolours most of the application. */
+:root {
+  --fonts-main: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+  /* Cool neutrals with a hint of violet. Light steps (0 to 4) are surfaces and borders, dark steps (5 to 9) are text. */
+  --oc-gray-0: #fafafc;
+  --oc-gray-1: #f5f5f9;
+  --oc-gray-2: #eeeef4;
+  --oc-gray-3: #e4e4ec;
+  --oc-gray-4: #dadae5;
+  --oc-gray-5: #67677f;
+  --oc-gray-6: #5a5a72;
+  --oc-gray-7: #484860;
+  --oc-gray-8: #32324a;
+  --oc-gray-9: #1c1c2e;
+  --oc-gray-9-rgb: 28, 28, 46;
+
+  /* Violet replaces the blue and indigo ramps: links, selected items, focus. Step 7 is the text colour (7 to 1 on white). */
+  --amethyst-violet-0: #f6f2ff;
+  --amethyst-violet-1: #ece4ff;
+  --amethyst-violet-2: #dccdff;
+  --amethyst-violet-3: #c4adfb;
+  --amethyst-violet-4: #a98af6;
+  --amethyst-violet-5: #8e68ee;
+  --amethyst-violet-6: #7647e0;
+  --amethyst-violet-7: #5f35c4;
+  --amethyst-violet-8: #4c28a3;
+  --amethyst-violet-9: #391d7c;
+  --oc-blue-0: var(--amethyst-violet-0);
+  --oc-blue-1: var(--amethyst-violet-1);
+  --oc-blue-2: var(--amethyst-violet-2);
+  --oc-blue-3: var(--amethyst-violet-3);
+  --oc-blue-4: var(--amethyst-violet-4);
+  --oc-blue-5: var(--amethyst-violet-5);
+  --oc-blue-6: var(--amethyst-violet-6);
+  --oc-blue-7: var(--amethyst-violet-7);
+  --oc-blue-8: var(--amethyst-violet-8);
+  --oc-blue-9: var(--amethyst-violet-7); /* Redmine colours its links with step 9 */
+  --oc-blue-1-rgb: 236, 228, 255;
+  --oc-blue-7-rgb: 95, 53, 196;
+  --oc-indigo-0: var(--amethyst-violet-0);
+  --oc-indigo-1: var(--amethyst-violet-1);
+  --oc-indigo-5: var(--amethyst-violet-5);
+  --oc-indigo-9: var(--amethyst-violet-9);
+
+  --color-top-menu-background: #fff;
+  --color-header-background: var(--amethyst-page); /* the phone header uses it; the wide layout paints its own */
+
+  --amethyst-page: #fff;
+  --amethyst-radius: 6px;
+
+  /* The sidebar is light in the light set. Its colours are tokens so the dark set can swap them in one place. */
+  --amethyst-rail: #f4f2fb;
+  --amethyst-rail-width: 232px;
+  --amethyst-rail-ink: #3d3a57;
+  --amethyst-rail-ink-strong: #1c1c2e;
+  --amethyst-rail-dim: #5f5b7d;
+  --amethyst-rail-hover: rgba(95, 53, 196, 0.08);
+  --amethyst-rail-selected: #e6dcff;
+  --amethyst-rail-selected-ink: #3a1d85;
+  --amethyst-rail-line: #e0dbf0;
+  --amethyst-rail-field: #fff;
+  --amethyst-rail-field-line: #d5cfea;
+  --amethyst-phone-menu: #2a2540;
+  --amethyst-phone-menu-ink: #ddd8f2;
+  --amethyst-shadow: rgba(28, 28, 46, 0.14);
+}
+
+/* 2. Dark tokens: see the one block at the end of this file. */
+
+body { color: var(--oc-gray-9); background: var(--amethyst-page); }
+a:hover, a:active { color: var(--amethyst-violet-8); text-decoration: underline; }
+#wrapper { background: var(--amethyst-page); }
+
+/* 3. Layout shell: top bar, project header, menu, sidebar. */
+nav.top-menu {
+  background: var(--color-top-menu-background);
+  color: var(--oc-gray-6);
+  min-block-size: 40px;
+  padding-inline: 20px;
+  border-block-end: 1px solid var(--oc-gray-3);
+}
+.top-menu__links a, .top-menu__links a:link, .top-menu__links a:visited, #account .dropdown-trigger {
+  color: var(--oc-gray-7);
+  border-radius: var(--amethyst-radius);
+  padding-block: 4px;
+  padding-inline: 10px;
+}
+.top-menu__links a:hover, #account .dropdown-trigger:hover {
+  color: var(--oc-gray-9);
+  background-color: var(--amethyst-violet-0);
+}
+.top-menu__links svg.icon-svg, #account .dropdown-trigger .icon-svg { stroke: var(--oc-gray-7); }
+.top-menu__links a:hover svg.icon-svg, #account .dropdown-trigger:hover .icon-svg { stroke: var(--oc-gray-9); }
+
+#header {
+  background: var(--amethyst-page);
+  color: var(--oc-gray-9);
+  padding-inline: 20px;
+  border-block-end: 1px solid var(--oc-gray-3);
+}
+#header a { color: var(--oc-gray-7); }
+#header a:hover { color: var(--oc-gray-9); }
+#header h1 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.015em; }
+#header h1 .breadcrumbs { color: var(--oc-gray-6); letter-spacing: 0; }
+#quick-search #q {
+  border-radius: var(--amethyst-radius);
+  border-color: var(--oc-gray-4);
+  background: var(--oc-gray-0);
+  padding-inline: 12px;
+  inline-size: 180px;
+  block-size: 30px;
+}
+#quick-search form label { color: var(--oc-gray-6); }
+
+/* Phones: Redmine hides the project name and shows a menu button in a 64px bar, and slides the menus in from the right. */
+body .flyout-menu { background-color: var(--amethyst-phone-menu); }
+body .flyout-menu h3 { background-color: rgba(255, 255, 255, 0.07); border-block-color: var(--amethyst-phone-menu); color: var(--amethyst-phone-menu-ink); }
+body #header #project-jump .drdn-trigger { color: var(--oc-gray-8); }
+body #header a.mobile-toggle-button { color: var(--oc-gray-7); }
+body #header { border-block-end: 1px solid var(--oc-gray-3); }
+
+#main-menu { background: transparent; padding-inline: 14px; }
+#main-menu li a {
+  color: var(--oc-gray-6);
+  padding-block: 8px 6px;
+  border-radius: var(--amethyst-radius) var(--amethyst-radius) 0 0;
+}
+#main-menu li a:hover { background: var(--amethyst-violet-0); color: var(--oc-gray-9); }
+#main-menu li a.selected, #main-menu li a.selected:hover {
+  background: transparent;
+  color: var(--amethyst-violet-8);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--amethyst-violet-6);
+}
+#main-menu li a.new-object, #main-menu li a.new-object:hover {
+  background: var(--amethyst-violet-7);
+  color: #fff;
+  border-radius: var(--amethyst-radius);
+  box-shadow: none;
+}
+
+/* On wide screens all navigation lives in a light left sidebar: the title, search and project jump, the general links, the project
+ * menu (or the administration menu) and, at the bottom, the profile. Plain CSS: the header's and the top menu's children become
+ * grid items of the page wrapper. Narrower screens, and the login page, keep Redmine's own arrangement. */
+@media (min-width: 1100px) {
+  body:not(.controller-account) #wrapper {
+    display: grid;
+    grid-template-columns: var(--amethyst-rail-width) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto 1fr auto;
+    grid-template-areas:
+      "brand   main"
+      "search  main"
+      "general main"
+      "menu    main"
+      "filler  main"
+      "profile footer";
+    background: linear-gradient(
+      to right,
+      var(--amethyst-rail) calc(var(--amethyst-rail-width) - 1px),
+      var(--amethyst-rail-line) calc(var(--amethyst-rail-width) - 1px) var(--amethyst-rail-width),
+      var(--amethyst-page) var(--amethyst-rail-width)
+    );
+  }
+  body:not(.controller-account) #header, body:not(.controller-account) nav.top-menu { display: contents; }
+
+  body:not(.controller-account) #header h1 {
+    grid-area: brand;
+    background: var(--amethyst-rail);
+    color: var(--amethyst-rail-ink-strong);
+    padding: 16px 18px 12px;
+    min-block-size: 0;
+    justify-content: center;
+  }
+  body:not(.controller-account) #header h1 .breadcrumbs, body:not(.controller-account) #header h1 .breadcrumbs a { color: var(--amethyst-rail-dim); }
+  body:not(.controller-account) #header h1 a { color: var(--amethyst-rail-ink-strong); }
+
+  /* Search and project jump, stacked. */
+  body:not(.controller-account) #quick-search {
+    grid-area: search;
+    float: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    min-block-size: 0;
+    padding: 0 12px 12px;
+    background: var(--amethyst-rail);
+  }
+  body:not(.controller-account) #quick-search form { display: flex; flex-direction: column; gap: 4px; margin: 0; }
+  body:not(.controller-account) #quick-search form label { margin: 0; font-size: 0.75rem; color: var(--amethyst-rail-dim); }
+  body:not(.controller-account) #quick-search form label a { color: var(--amethyst-rail-dim); }
+  body:not(.controller-account) #quick-search #q {
+    inline-size: 100%;
+    background: var(--amethyst-rail-field);
+    border: 1px solid var(--amethyst-rail-field-line);
+    color: var(--amethyst-rail-ink-strong);
+  }
+  body:not(.controller-account) #project-jump.drdn { inline-size: 100%; display: block; }
+  body:not(.controller-account) #header #project-jump .drdn-trigger {
+    background-color: var(--amethyst-rail-field);
+    background-image: none;
+    border: 1px solid var(--amethyst-rail-field-line);
+    border-radius: var(--amethyst-radius);
+    color: var(--amethyst-rail-ink-strong);
+    padding-block: 6px;
+    padding-inline: 12px;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: auto;
+    min-block-size: 32px;
+    line-height: 1.4;
+  }
+  body:not(.controller-account) #project-jump .drdn-trigger::after { content: "\25BE"; float: inline-end; opacity: 0.7; }
+  /* The popup opens from the left edge of the rail; Redmine anchors it to the right edge, which pushes it off the page here. */
+  body:not(.controller-account) #project-jump .drdn-content {
+    z-index: 60;
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    inline-size: 280px;
+    border-radius: 10px;
+    box-shadow: 0 12px 32px var(--amethyst-shadow);
+  }
+
+  /* General links. */
+  body:not(.controller-account) .general-menu {
+    grid-area: general;
+    padding: 4px 12px 12px;
+    background: var(--amethyst-rail);
+    border-block-end: 1px solid var(--amethyst-rail-line);
+  }
+  body:not(.controller-account) .top-menu__links ul { flex-direction: column; gap: 1px; }
+  body:not(.controller-account) .top-menu__links a, body:not(.controller-account) .top-menu__links a:link, body:not(.controller-account) .top-menu__links a:visited {
+    display: block;
+    color: var(--amethyst-rail-ink);
+    padding: 7px 10px;
+    border-radius: var(--amethyst-radius);
+  }
+  body:not(.controller-account) .top-menu__links a:hover { background: var(--amethyst-rail-hover); color: var(--amethyst-rail-ink-strong); text-decoration: none; }
+
+  /* The profile, at the bottom of the sidebar; its dropdown opens upwards. */
+  body:not(.controller-account) .profile-menu {
+    grid-area: profile;
+    padding: 12px;
+    background: var(--amethyst-rail);
+    border-block-start: 1px solid var(--amethyst-rail-line);
+  }
+  body:not(.controller-account) #account .dropdown-trigger { color: var(--amethyst-rail-ink); }
+  body:not(.controller-account) #account .dropdown-trigger:hover { color: var(--amethyst-rail-ink-strong); background: var(--amethyst-rail-hover); }
+  body:not(.controller-account) #account .dropdown-trigger .icon-svg { stroke: currentColor; }
+  body:not(.controller-account) #account .dropdown-content {
+    inset-block-start: auto;
+    inset-block-end: calc(100% + 8px);
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+    min-inline-size: 220px;
+  }
+
+  /* The project menu. */
+  body:not(.controller-account) #main-menu {
+    grid-area: menu;
+    position: static;
+    padding: 12px 12px 14px;
+    background: var(--amethyst-rail); /* the wrapper's gradient paints the rail too; this keeps the colour on the element itself */
+  }
+  body:not(.controller-account) #main-menu ul { flex-direction: column; align-items: stretch; gap: 1px; min-block-size: 0; }
+  body:not(.controller-account) #main-menu li { display: block; padding: 0; }
+  body:not(.controller-account) #main-menu li a {
+    display: block;
+    color: var(--amethyst-rail-ink);
+    padding: 7px 10px;
+    border-radius: var(--amethyst-radius);
+  }
+  body:not(.controller-account) #main-menu li a:hover { background: var(--amethyst-rail-hover); color: var(--amethyst-rail-ink-strong); }
+  body:not(.controller-account) #main-menu li a.selected, body:not(.controller-account) #main-menu li a.selected:hover {
+    background: var(--amethyst-rail-selected);
+    color: var(--amethyst-rail-selected-ink);
+    box-shadow: none;
+  }
+  body:not(.controller-account) #main-menu li:has(a#new-object) { padding: 0 0 10px; position: relative; }
+  body:not(.controller-account) #main-menu li a.new-object, body:not(.controller-account) #main-menu li a.new-object:hover {
+    text-align: center;
+    background: var(--amethyst-violet-7);
+    color: #fff;
+  }
+  /* The "+" menu opens to the right of the sidebar, not over the items below it. */
+  body:not(.controller-account) #main-menu .menu-children {
+    inset-block-start: 0;
+    inset-inline-start: calc(100% - 4px);
+    inline-size: 220px;
+    padding: 6px;
+    border: 1px solid var(--oc-gray-3);
+    border-radius: 10px;
+    background: var(--oc-white);
+    box-shadow: 0 12px 32px var(--amethyst-shadow);
+  }
+  body:not(.controller-account) #main-menu .menu-children li a {
+    color: var(--oc-gray-8);
+    background: transparent;
+    border-radius: var(--amethyst-radius);
+    padding: 7px 10px;
+  }
+  body:not(.controller-account) #main-menu .menu-children li a:hover { color: var(--oc-gray-9); background: var(--amethyst-violet-0); }
+
+  body:not(.controller-account) #main { grid-area: main; }
+  body:not(.controller-account) #footer { grid-area: footer; }
+
+  /* Administration: the admin menu takes the project menu's place. Subpages keep it in the sidebar; the index keeps it in the
+   * page, so the page contents become grid items of the wrapper to put the list in the rail and the title in the main area. */
+  body:not(.controller-account):has(#admin-menu) #main { display: contents; }
+  body:not(.controller-account):has(#admin-menu) #sidebar {
+    grid-area: menu;
+    inline-size: auto;
+    padding: 12px 12px 14px;
+    border: 0;
+    background: var(--amethyst-rail);
+    color: var(--amethyst-rail-ink);
+  }
+  body:not(.controller-account):has(#admin-menu) #sidebar-switch-panel { display: none; }
+  body:not(.controller-account):has(#admin-menu) #sidebar h3 { color: var(--amethyst-rail-dim); padding-inline: 10px; }
+  body:not(.controller-account):has(#admin-menu) #content { grid-area: main; min-inline-size: 0; }
+  body:not(.controller-account):has(#content #admin-menu) #content { display: contents; }
+  body:not(.controller-account):has(#content #admin-menu) #content > h2 { grid-area: main; padding: 24px 28px 0; margin: 0; }
+  body:not(.controller-account):has(#content #admin-menu) #admin-menu { grid-area: menu; background: var(--amethyst-rail); padding: 12px 12px 14px; }
+  #admin-menu a, #sidebar #admin-menu a {
+    display: block;
+    color: var(--amethyst-rail-ink);
+    padding: 7px 10px;
+    border-radius: var(--amethyst-radius);
+  }
+  #admin-menu a svg, #admin-menu a .icon-svg { stroke: currentColor; }
+  #admin-menu a:hover { background: var(--amethyst-rail-hover); color: var(--amethyst-rail-ink-strong); text-decoration: none; }
+  #admin-menu a.selected, #admin-menu a.selected:hover { background: var(--amethyst-rail-selected); color: var(--amethyst-rail-selected-ink); }
+}
+
+#main { background: var(--amethyst-page); }
+#content {
+  background: transparent;
+  padding-block: 24px 22px;
+  padding-inline: 28px;
+}
+#content > h2 { color: var(--oc-gray-9); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.015em; margin-block: 0 14px; }
+#content h3 { color: var(--oc-gray-9); font-weight: 600; }
+/* Headings inside wiki pages and descriptions: one scale, ink coloured, below the page title. */
+.wiki h1, .wiki h2, .wiki h3, .wiki h4 { color: var(--oc-gray-9); font-weight: 700; letter-spacing: -0.015em; }
+.wiki h1 { font-size: 1.4rem; }
+.wiki h2 { font-size: 1.17rem; }
+.wiki h3 { font-size: 1.03rem; }
+.wiki table { border-collapse: collapse; }
+.wiki table th, .wiki table td { border: 1px solid var(--oc-gray-4); padding: 5px 9px; }
+.wiki table th { background: var(--oc-gray-1); }
+#sidebar { background: transparent; border-inline-start: 1px solid var(--oc-gray-3); inline-size: 232px; }
+#sidebar h3 { color: var(--oc-gray-6); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+#footer { background: transparent; border-block-start: 1px solid var(--oc-gray-3); color: var(--oc-gray-6); }
+
+/* Administration, below the wide layout: Redmine lists the admin menu in the page on the index and in the right-hand sidebar on
+ * every other admin page, so it jumps from one side to the other. The sidebar sits on the left, where the index list is. */
+@media (max-width: 1099px) {
+  #main:has(#sidebar #admin-menu) { flex-direction: row; }
+  #main:has(#sidebar #admin-menu) #sidebar {
+    border-inline-start: 0;
+    border-inline-end: 1px solid var(--oc-gray-3);
+    padding-inline: 28px 16px;
+    inline-size: 250px;
+  }
+  #main:has(#sidebar #admin-menu) #sidebar-switch-panel { display: none; }
+}
+
+/* 4. Issues: the list, the issue page, history. */
+table.list { border: 0; }
+table.list th {
+  background: var(--oc-gray-1);
+  color: var(--oc-gray-6);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-block: 8px;
+  border-block-end: 1px solid var(--oc-gray-4);
+}
+table.list th a { color: var(--oc-gray-6); }
+table.list td { padding-block: 8px; border-block-start: 1px solid var(--oc-gray-2); }
+/* Soft zebra stripes and thin column lines keep wide tables easy to follow; hover is a violet tint instead of Redmine's yellow. */
+.box table.list:not(.odd-even) tbody tr:nth-child(even), .box .even,
+table.list:not(.odd-even) tbody tr:nth-child(even), .even { background-color: var(--oc-gray-0); }
+table.list:not(.odd-even) tbody tr:nth-child(odd), .odd { background-color: var(--oc-white); }
+table.list:not(.odd-even) tbody tr:nth-child(odd):hover, .odd:hover,
+table.list:not(.odd-even) tbody tr:nth-child(even):hover, .even:hover { background-color: var(--amethyst-violet-0); }
+table.list > thead > tr > th + th, table.list > tbody > tr > td + td { border-inline-start: 1px solid var(--oc-gray-3); }
+table.list > tbody > tr.group > td { border-inline-start: 0; }
+/* The subject is ink, the ticket number carries the accent. */
+table.list td.subject a, table.list td.parent-subject a { color: var(--oc-gray-9); }
+table.list td.subject a:hover, table.list td.parent-subject a:hover { color: var(--amethyst-violet-7); }
+table.list td.assigned_to a, table.list td.author a { color: var(--oc-gray-7); }
+
+/* The issue: a quiet card with a violet edge instead of Redmine's yellow box, and calmer headings inside the description. */
+div.issue {
+  background: var(--oc-white);
+  border: 1px solid var(--oc-gray-3);
+  border-inline-start: 4px solid var(--amethyst-violet-6);
+  border-radius: 10px;
+  padding: 18px 22px;
+}
+#content div.issue div.wiki h1 { font-size: 1.3em; }
+#content div.issue div.wiki h2 { font-size: 1.15em; }
+#content div.issue div.wiki h3 { font-size: 1.02em; }
+
+/* Avatars: Redmine's orange and pink do not reach 4.5 to 1 with white text, so those two are darker. */
+.avatar-color-1 { background-color: #b4540a; }
+.avatar-color-7 { background-color: #c2255c; }
+
+/* Small fixes found by the contrast check. */
+span.badge.badge-count { background-color: var(--amethyst-violet-7); }
+a.issue.tracker-2, a.issue.tracker-2:visited { color: var(--amethyst-violet-7); }
+.syntaxhl .k { color: #006b00; }
+
+/* 5. Forms, buttons, flash messages, context menu, login. */
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=search], input[type=date],
+input[type=url], input[type=tel], input:not([type]), select, textarea {
+  border: 1px solid var(--oc-gray-4);
+  border-radius: var(--amethyst-radius);
+  background-color: var(--oc-white);
+  color: var(--oc-gray-9);
+  padding-inline: 10px;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, input[type=search]:focus,
+input[type=date]:focus, input[type=url]:focus, input:not([type]):focus, select:focus, textarea:focus {
+  outline: 3px solid var(--amethyst-violet-1);
+  outline-offset: 0;
+  border-color: var(--amethyst-violet-6);
+}
+input[type=submit], input[type=button], input[type=reset], button, a.button {
+  border: 1px solid var(--oc-gray-4);
+  border-radius: var(--amethyst-radius);
+  background: var(--oc-white);
+  color: var(--oc-gray-8);
+  padding-block: 5px;
+  padding-inline: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover, button:hover, a.button:hover {
+  background: var(--amethyst-violet-0);
+  border-color: var(--amethyst-violet-4);
+  text-decoration: none;
+}
+input[type=submit] {
+  background: var(--amethyst-violet-7);
+  border-color: var(--amethyst-violet-7);
+  color: #fff;
+}
+input[type=submit]:hover {
+  background: var(--amethyst-violet-8);
+  border-color: var(--amethyst-violet-8);
+}
+div.flash { border-radius: 8px; border-width: 1px; }
+#login-form {
+  background: var(--oc-white);
+  border: 1px solid var(--oc-gray-3);
+  border-block-start: 4px solid var(--amethyst-violet-6);
+  border-radius: 12px;
+  padding: 26px;
+  box-shadow: 0 12px 40px rgba(28, 28, 46, 0.08);
+}
+#login-form a.lost_password { color: var(--amethyst-violet-7); }
+
+/* 6. Everything else follows from the tokens. Fix only what is clearly broken. */
+
+/* 7. Dark, from the system setting. Every dark rule is in this one block; delete it to keep the theme light-only. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --oc-white: #17151f;
+    --oc-gray-0: #1c1a26;
+    --oc-gray-1: #232130;
+    --oc-gray-2: #2b2939;
+    --oc-gray-3: #363446;
+    --oc-gray-4: #423f54;
+    --oc-gray-5: #a29fba;
+    --oc-gray-6: #b3b0c9;
+    --oc-gray-7: #c8c6da;
+    --oc-gray-8: #dedceb;
+    --oc-gray-9: #f3f2f9;
+    --oc-gray-9-rgb: 243, 242, 249;
+
+    /* Links and accents are the light end of the violet ramp; buttons keep step 7 with white text. */
+    --oc-blue-0: #2a2145;
+    --oc-blue-1: #352a5c;
+    --oc-blue-7: var(--amethyst-violet-4);
+    --oc-blue-9: var(--amethyst-violet-3);
+    --oc-blue-1-rgb: 53, 42, 92;
+    --oc-blue-7-rgb: 169, 138, 246;
+
+    --color-top-menu-background: #17151f;
+    --amethyst-page: #17151f;
+    --amethyst-rail: #120f1a;
+    --amethyst-rail-ink: #cfcbe3;
+    --amethyst-rail-ink-strong: #fff;
+    --amethyst-rail-dim: #a9a4c4;
+    --amethyst-rail-hover: rgba(255, 255, 255, 0.08);
+    --amethyst-rail-selected: #3a2a73;
+    --amethyst-rail-selected-ink: #fff;
+    --amethyst-rail-line: #2a2540;
+    --amethyst-rail-field: rgba(255, 255, 255, 0.07);
+    --amethyst-rail-field-line: rgba(255, 255, 255, 0.16);
+    --amethyst-shadow: rgba(0, 0, 0, 0.5);
+  }
+
+  a:hover, a:active { color: var(--amethyst-violet-2); }
+  table.list td.subject a:hover, table.list td.parent-subject a:hover,
+  a.issue.tracker-2, a.issue.tracker-2:visited, #login-form a.lost_password { color: var(--amethyst-violet-3); }
+  #login-form { box-shadow: none; }
+  #main-menu li a.selected, #main-menu li a.selected:hover { color: var(--amethyst-violet-3); }
+
+  /* Redmine paints white text with the same variable that is now a dark surface, so white text on colour is set by hand. */
+  [class*="avatar-color-"], span.badge.badge-count { color: #fff; }
+  .pagination ul.pages li.current { background-color: var(--amethyst-violet-7); border-color: var(--amethyst-violet-7); }
+  .pagination ul.pages li.current span { color: #fff; }
+  .avatar-color-2 { color: #1c1c2e; }
+  span.required { color: #ff8787; }
+  a.issue.tracker-1, a.issue.tracker-1:visited { color: #ff8787; }
+
+  /* Code blocks stay light: the syntax colours are made for a light background. */
+  pre, div.wiki pre, div.pre-wrapper pre, code.syntaxhl, div.wiki code.syntaxhl, div.pre-wrapper code { background-color: #f4f3f9; color: #1c1c2e; }
+  .avatar-color-5 { background-color: var(--amethyst-violet-7); }
+}
