@@ -1,0 +1,36 @@
+name: check
+
+# Starts a real Redmine from its Docker image with demo data, then loads every page of the theme in light and dark,
+# at desktop and phone width, and fails on console errors, failed requests, sideways scrolling and low text contrast.
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Redmine ${{ matrix.redmine }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        redmine: ["7.0.2", "7.0"]
+    env:
+      REDMINE_TAG: ${{ matrix.redmine }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Start Redmine and load the demo data
+        run: ruby bin/demo up
+
+      - name: Check the pages
+        run: npm run check

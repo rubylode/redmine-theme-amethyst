@@ -1,0 +1,18 @@
+[
+  { "name": "login", "path": "/login", "signedIn": false, "gate": true, "screenshot": true },
+  { "name": "home", "path": "/", "signedIn": true, "gate": true, "screenshot": false },
+  { "name": "project", "path": "/projects/atlas", "signedIn": true, "gate": true, "screenshot": true },
+  { "name": "projects", "path": "/projects", "signedIn": true, "gate": true, "screenshot": true },
+  { "name": "issues", "path": "/projects/atlas/issues?set_filter=1&status_id=*&sort=priority:desc,id:desc", "signedIn": true, "gate": true, "screenshot": true },
+  { "name": "issues-grouped", "path": "/projects/atlas/issues?set_filter=1&status_id=*&group_by=status&t[]=estimated_hours", "signedIn": true, "gate": true, "screenshot": false },
+  { "name": "issue", "path": "/issues/1", "signedIn": true, "gate": true, "screenshot": true },
+  { "name": "issue-edit", "path": "/issues/1/edit", "signedIn": true, "gate": true, "screenshot": false },
+  { "name": "todo", "path": "/projects/atlas/todo", "signedIn": true, "gate": true, "screenshot": true, "optional": true },
+  { "name": "new-issue", "path": "/projects/atlas/issues/new", "signedIn": true, "gate": true, "screenshot": true },
+  { "name": "my-page", "path": "/my/page", "signedIn": true, "gate": true, "screenshot": false },
+  { "name": "wiki", "path": "/projects/atlas/wiki/Architecture", "signedIn": true, "gate": true, "screenshot": true },
+  { "name": "gantt", "path": "/projects/atlas/issues/gantt", "signedIn": true, "gate": false, "screenshot": false },
+  { "name": "calendar", "path": "/projects/atlas/issues/calendar", "signedIn": true, "gate": false, "screenshot": false },
+  { "name": "project-settings", "path": "/projects/atlas/settings", "signedIn": true, "gate": false, "screenshot": false },
+  { "name": "administration", "path": "/admin/projects", "signedIn": true, "gate": false, "screenshot": false }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "redmine-theme-amethyst",
+  "private": true,
+  "description": "Development tools for the Amethyst theme: the page check, the screenshots and the recording.",
+  "license": "GPL-2.0-or-later",
+  "type": "module",
+  "scripts": {
+    "check": "node test/check.mjs",
+    "screenshots": "node test/screenshots.mjs",
+    "record": "node test/record.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}

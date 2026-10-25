@@ -1,0 +1,22 @@
+# A throwaway Redmine 7 to develop and check the theme in. Not a real tracker.
+# Start: ruby bin/demo up, then open http://localhost:3102 (admin / admin).
+# The theme folder is mounted, but Redmine caches its assets: after a CSS change run ruby bin/demo restart, then reload. Wipe it: ruby bin/demo reset.
+# REDMINE_TAG picks the Redmine version, for example 7.0.2 or 7.0.
+services:
+  redmine:
+    image: redmine:${REDMINE_TAG:-7.0.2}
+    container_name: redmine-theme-amethyst-dev
+    ports:
+      - "127.0.0.1:3102:3000"
+    environment:
+      # The image ships without the development gems, so production is the mode it can boot in.
+      RAILS_ENV: production
+    volumes:
+      - ./amethyst:/usr/src/redmine/themes/amethyst
+      - ./test/seed.rb:/usr/src/redmine/seed.rb:ro
+      - redmine-files:/usr/src/redmine/files
+      - redmine-sqlite:/usr/src/redmine/sqlite
+
+volumes:
+  redmine-files:
+  redmine-sqlite:
