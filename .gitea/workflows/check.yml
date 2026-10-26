@@ -1,0 +1,37 @@
+name: check
+
+# Starts a real Redmine from its Docker image with demo data, then loads every page of the theme in light and dark,
+# at desktop and phone width, and fails on console errors, failed requests, sideways scrolling and low text contrast.
+# It runs on the self-hosted runner labelled theme-ci (Docker, Node, Ruby and Chrome on the host). The demo uses fixed
+# ports, so the two Redmine versions run one after the other.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Redmine ${{ matrix.redmine }}
+    runs-on: theme-ci
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        redmine: ["7.0.2", "7.0"]
+    env:
+      REDMINE_TAG: ${{ matrix.redmine }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: npm ci
+
+      - name: Start Redmine and load the demo data
+        run: ruby bin/demo reset && ruby bin/demo up
+
+      - name: Check the pages
+        run: npm run check
+
+      - name: Stop Redmine and wipe its data
+        if: always()
+        run: ruby bin/demo reset

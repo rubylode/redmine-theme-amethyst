@@ -27,12 +27,13 @@ Dark mode:
 - [Dark mode](#dark-mode)
 - [Compatibility](#compatibility)
 - [Development](#development)
+- [Checks and releases](#checks-and-releases)
 - [License](#license)
 - [Disclaimer](#disclaimer)
 
 ## Install
 
-1. Copy the `amethyst` folder from this repository into the `themes` folder of your Redmine.
+1. Download the zip attached to the latest release (the Releases page of this repository) and unzip it inside the `themes` folder of your Redmine, so that `themes/amethyst/stylesheets/application.css` exists. Or copy the `amethyst` folder from the source tree.
 2. Restart Redmine.
 3. In Administration, Settings, Display, choose **Amethyst** as the theme and save.
 
@@ -71,6 +72,12 @@ the check, screenshots and recording include its page. Without it they skip that
 The check fails on console errors, failed requests, sideways scrolling and text below WCAG AA contrast. `REDMINE_TAG=7.0 ruby bin/demo up`
 runs it against another Redmine version. After you change the stylesheet, run `ruby bin/demo restart` and reload: Redmine caches theme
 files until it restarts.
+
+## Checks and releases
+
+Every push to `main` starts a real Redmine from its Docker image (7.0.2 and the 7.0 line), loads every page of the theme in light and dark at desktop and phone width, and fails on console errors, failed requests, sideways scrolling and low text contrast. The workflow is in `.gitea/workflows/check.yml` and runs on a runner with Docker, Node, Ruby and Chrome.
+
+A tag such as `v1.0.0` runs the same check, builds `<name>-<version>.zip` holding the theme folder, and attaches it to a release with the matching section of `CHANGELOG.md` as its notes (`.gitea/workflows/release.yml`). The tag needs a section for that version in the changelog.
 
 ## License
 

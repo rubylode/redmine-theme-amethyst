@@ -1,0 +1,59 @@
+name: release
+
+# On a version tag (v1.2.3): checks the theme once more, builds a zip that holds the theme folder, and attaches it to a release
+# with the matching changelog section as the notes. The Install section of the README points at that zip.
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  release:
+    runs-on: theme-ci
+    env:
+      REDMINE_TAG: "7.0.2"
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: npm ci
+
+      - name: Check the theme before releasing it
+        run: ruby bin/demo reset && ruby bin/demo up && npm run check
+
+      - name: Build the zip and the release notes
+        run: |
+          set -eu
+          theme="${GITHUB_REPOSITORY##*/redmine-theme-}"
+          version="${GITHUB_REF_NAME#v}"
+          test -d "$theme/stylesheets" || { echo "no $theme folder in this repository"; exit 1; }
+          rm -rf dist && mkdir dist
+          zip -r -q "dist/$theme-$version.zip" "$theme" -x "*.DS_Store"
+          ruby -e '
+            version = ARGV[0]
+            changelog = File.read("CHANGELOG.md")
+            section = changelog[/^## \[#{Regexp.escape(version)}\][^\n]*\n(.*?)(?=^## \[|\z)/m, 1]
+            abort "CHANGELOG.md has no section for #{version}" if section.to_s.strip.empty?
+            File.write("dist/notes.md", section.strip + "\n")
+          ' "$version"
+          ls -l dist
+
+      - name: Create the release and attach the zip
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          DEFAULT_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          token="${RELEASE_TOKEN:-$DEFAULT_TOKEN}"
+          theme="${GITHUB_REPOSITORY##*/redmine-theme-}"
+          version="${GITHUB_REF_NAME#v}"
+          api="${GITHUB_SERVER_URL}/api/v1/repos/${GITHUB_REPOSITORY}"
+          ruby -rjson -e '
+            tag, name = ARGV
+            File.write("dist/release.json", JSON.generate(tag_name: tag, name: name, body: File.read("dist/notes.md"), draft: false, prerelease: false))
+          ' "$GITHUB_REF_NAME" "$theme $version"
+          release_id="$(curl -sf -X POST -H "Authorization: token $token" -H "Content-Type: application/json" -d @dist/release.json "$api/releases" | ruby -rjson -e 'puts JSON.parse(STDIN.read).fetch("id")')"
+          curl -sf -X POST -H "Authorization: token $token" -F "attachment=@dist/$theme-$version.zip" "$api/releases/$release_id/assets?name=$theme-$version.zip" > /dev/null
+          echo "released $theme $version as release $release_id"
+
+      - name: Stop Redmine and wipe its data
+        if: always()
+        run: ruby bin/demo reset
