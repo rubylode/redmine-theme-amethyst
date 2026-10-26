@@ -427,6 +427,7 @@ div.issue {
 #content div.issue div.wiki h3 { font-size: 1.02em; }
 
 /* Avatars: Redmine's orange and pink do not reach 4.5 to 1 with white text, so those two are darker. */
+.avatar-color-0 { background-color: #c92a2a; }
 .avatar-color-1 { background-color: #b4540a; }
 .avatar-color-7 { background-color: #c2255c; }
 
