@@ -1,6 +1,6 @@
 # Amethyst for Redmine
 
-Violet accents on a clean white page, with all navigation in a light sidebar and tighter spacing.
+A violet-to-magenta band across the top, with pill menus, and white cards on a soft tinted canvas.
 
 A theme for Redmine 7 and up. It is CSS only, with no script, no plugin and no change to Redmine itself. Light first, with a dark set that follows your system setting (see [Dark mode](#dark-mode)).
 
