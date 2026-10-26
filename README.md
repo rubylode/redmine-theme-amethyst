@@ -75,9 +75,9 @@ files until it restarts.
 
 ## Checks and releases
 
-Every push to `main` (not pull requests: the runner works on the host with Docker access, so it only runs code that is already merged) starts a real Redmine from its Docker image (7.0.2 and the 7.0 line), loads every page of the theme in light and dark at desktop and phone width, and fails on console errors, failed requests, sideways scrolling and low text contrast. The workflow is in `.gitea/workflows/check.yml` and runs on a runner with Docker, Node, Ruby and Chrome.
+Every push starts a real Redmine from its Docker image (7.0.2 and the 7.0 line), loads every page of the theme in light and dark at desktop and phone width, and fails on console errors, failed requests, sideways scrolling and low text contrast. On GitHub that is `.github/workflows/check.yml`, on GitHub's own runners, and it also runs on pull requests. On a self-hosted Gitea it is `.gitea/workflows/check.yml`, which runs only on pushes to `main`, because that runner works on the host with Docker access and must only run code that is already merged.
 
-A tag such as `v1.0.0` runs the same check, builds `<name>-<version>.zip` holding the theme folder, and attaches it to a release with the matching section of `CHANGELOG.md` as its notes (`.gitea/workflows/release.yml`). The tag needs a section for that version in the changelog.
+A tag such as `v1.0.0` runs the same check, builds `<name>-<version>.zip` holding the theme folder, and attaches it to a release with the matching section of `CHANGELOG.md` as its notes (`release.yml` in the same folders). The tag needs a section for that version in the changelog.
 
 ## License
 

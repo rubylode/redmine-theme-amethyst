@@ -1,0 +1,54 @@
+name: release
+
+# On a version tag (v1.2.3): checks the theme once more, builds a zip that holds the theme folder, and attaches it to a GitHub
+# release with the matching changelog section as the notes. The Install section of the README points at that zip.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      REDMINE_TAG: "7.0.2"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check the theme before releasing it
+        run: ruby bin/demo up && npm run check
+
+      - name: Build the zip and the release notes
+        run: |
+          set -eu
+          theme="${GITHUB_REPOSITORY##*/redmine-theme-}"
+          version="${GITHUB_REF_NAME#v}"
+          test -d "$theme/stylesheets" || { echo "no $theme folder in this repository"; exit 1; }
+          rm -rf dist && mkdir dist
+          zip -r -q "dist/$theme-$version.zip" "$theme" -x "*.DS_Store"
+          ruby -e '
+            version = ARGV[0]
+            changelog = File.read("CHANGELOG.md")
+            section = changelog[/^## \[#{Regexp.escape(version)}\][^\n]*\n(.*?)(?=^## \[|\z)/m, 1]
+            abort "CHANGELOG.md has no section for #{version}" if section.to_s.strip.empty?
+            File.write("dist/notes.md", section.strip + "\n")
+          ' "$version"
+          ls -l dist
+
+      - name: Create the release and attach the zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          theme="${GITHUB_REPOSITORY##*/redmine-theme-}"
+          version="${GITHUB_REF_NAME#v}"
+          gh release create "$GITHUB_REF_NAME" "dist/$theme-$version.zip" --title "$theme $version" --notes-file dist/notes.md
