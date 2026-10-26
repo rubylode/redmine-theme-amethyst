@@ -5,6 +5,7 @@ name: release
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,6 +16,9 @@ jobs:
     env:
       REDMINE_TAG: "7.0.2"
     steps:
+      - name: Make sure this runs from a tag
+        run: test "$GITHUB_REF_TYPE" = tag || { echo "Choose a tag, not a branch, under Use workflow from"; exit 1; }
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
