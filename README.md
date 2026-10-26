@@ -1,6 +1,6 @@
 # Amethyst for Redmine
 
-A violet-to-magenta band across the top, with pill menus, and white cards on a soft tinted canvas.
+Violet accents and a light sidebar, with the issue list as a task list: status dots, priority flags, status groups and view tabs.
 
 A theme for Redmine 7 and up. It is CSS plus one small script (`javascripts/theme.js`, about 70 lines), with no plugin and no change to Redmine itself. The script only reads the page: it colours status group headers, adds initials next to assignees and builds a row of view tabs. Without it the theme still works, with plainer lists. Light first, with a dark set that follows your system setting (see [Dark mode](#dark-mode)).
 
