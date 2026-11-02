@@ -22,6 +22,9 @@ jobs:
     env:
       REDMINE_TAG: ${{ matrix.redmine }}
     steps:
+      - name: Run manual checks only on main
+        run: test "$GITHUB_REF" = refs/heads/main || { echo "manual runs are only allowed on main"; exit 1; }
+
       - uses: actions/checkout@v4
 
       - run: npm ci

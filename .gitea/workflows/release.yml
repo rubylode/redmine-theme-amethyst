@@ -2,13 +2,15 @@ name: release
 
 # On a version tag (v1.2.3): checks the theme once more, builds a zip that holds the theme folder, and attaches it to a release
 # with the matching changelog section as the notes. The Install section of the README points at that zip.
+# Two jobs: "check" runs the repository's own code (npm, the demo Redmine, the page check) with no release token in its
+# environment; "release" runs only after it, builds the zip and publishes it. Both first make sure the tagged commit is on main.
 on:
   push:
     tags: ["v*"]
   workflow_dispatch:
 
 jobs:
-  release:
+  check:
     runs-on: theme-ci
     env:
       REDMINE_TAG: "7.0.2"
@@ -17,11 +19,34 @@ jobs:
         run: test "$GITHUB_REF_TYPE" = tag || { echo "Choose a tag, not a branch, under Use workflow from"; exit 1; }
 
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Make sure the tagged commit is on main
+        run: git fetch origin main && git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo "tag is not on main"; exit 1; }
 
       - run: npm ci
 
       - name: Check the theme before releasing it
         run: ruby bin/demo reset && ruby bin/demo up && npm run check
+
+      - name: Stop Redmine and wipe its data
+        if: always()
+        run: ruby bin/demo reset
+
+  release:
+    needs: check
+    runs-on: theme-ci
+    steps:
+      - name: Make sure this runs from a tag
+        run: test "$GITHUB_REF_TYPE" = tag || { echo "Choose a tag, not a branch, under Use workflow from"; exit 1; }
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Make sure the tagged commit is on main
+        run: git fetch origin main && git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo "tag is not on main"; exit 1; }
 
       - name: Build the zip and the release notes
         run: |
@@ -40,6 +65,8 @@ jobs:
           ' "$version"
           ls -l dist
 
+      # The per-run token is used. Only if a Gitea refuses it for releases, add a RELEASE_TOKEN secret with the
+      # write:repository scope and nothing else; it is then used instead.
       - name: Create the release and attach the zip
         env:
           RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
@@ -57,7 +84,3 @@ jobs:
           release_id="$(curl -sf -X POST -H "Authorization: token $token" -H "Content-Type: application/json" -d @dist/release.json "$api/releases" | ruby -rjson -e 'puts JSON.parse(STDIN.read).fetch("id")')"
           curl -sf -X POST -H "Authorization: token $token" -F "attachment=@dist/$theme-$version.zip" "$api/releases/$release_id/assets?name=$theme-$version.zip" > /dev/null
           echo "released $theme $version as release $release_id"
-
-      - name: Stop Redmine and wipe its data
-        if: always()
-        run: ruby bin/demo reset
