@@ -1,0 +1,245 @@
+/* Rubylode Amethyst, a theme for Redmine 7
+ * Copyright (C) 2026  Nick Gorbikoff
+ * GNU General Public License, version 2 or later. See the LICENSE file.
+ * Generated from the shared base of the Rubylode themes: a change made here is overwritten by the next build. */
+
+/* Amethyst's tokens, light values. The dark values of the same names are in dark.css. */
+:root {
+  /* Surfaces: a white page and white panels; cool neutrals with a hint of violet for stripes, bands and the sidebar. */
+  --theme-page: #ffffff;
+  --theme-surface: #ffffff;
+  --theme-surface-sunken: #f7f7fb;      /* attribute panels, journal headers, table header bands, stripes */
+  --theme-surface-hover: #f6f2ff;       /* hovered rows and menu items: the palest violet */
+  --theme-line: #e4e4ec;                /* row lines and panel borders */
+  --theme-line-soft: #eeeef4;           /* column lines, quiet chips */
+  --theme-line-strong: #85859f;         /* field borders: 3:1 against the page and the panels, as controls need */
+
+  /* Text: violet-tinted greys. All three reach WCAG AA on every surface above. */
+  --theme-ink: #1c1c2e;
+  --theme-ink-soft: #32324a;
+  --theme-ink-muted: #5a5a72;
+  --theme-ink-on-colour: #ffffff;
+  --theme-ink-on-light-colour: #1c1c2e;
+
+  /* The accent: one violet, light to dark. Step 6 is the focus colour, step 7 the button and link colour. */
+  --theme-accent-0: #f6f2ff;
+  --theme-accent-1: #ece4ff;
+  --theme-accent-2: #dccdff;
+  --theme-accent-3: #c4adfb;
+  --theme-accent-4: #a98af6;
+  --theme-accent-5: #8e68ee;
+  --theme-accent-6: #7647e0;
+  --theme-accent-7: #5f35c4;
+  --theme-accent-8: #4c28a3;
+  --theme-accent-9: #391d7c;
+  --theme-accent-1-rgb: 236, 228, 255;
+
+  /* A lighter violet (text selection, the focus halo) and an amber (search highlights). */
+  --theme-secondary: #c4adfb;
+  --theme-secondary-pale: #f6f2ff;
+  --theme-tertiary: #f2c94c;
+  --theme-tertiary-pale: #fff6d6;
+  --theme-accent-pale: #f6f2ff;
+
+  --theme-link: var(--theme-accent-7);
+  --theme-link-hover: var(--theme-accent-8);
+  --theme-primary: var(--theme-accent-7);
+  --theme-primary-hover: var(--theme-accent-8);
+  --theme-ink-on-primary: #ffffff;
+  --theme-primary-background: #5f35c4;
+  --theme-primary-background-hover: #4c28a3;
+  --theme-redmine-accent: var(--theme-accent-7);
+  --theme-redmine-accent-rgb: 95, 53, 196;
+  --theme-selected-tab-border-image: none;
+
+  /* The header: white, with a thin line under it. */
+  --theme-header-background: #ffffff;
+  --theme-header-background-solid: #ffffff;
+  --theme-header-ink: var(--theme-ink);
+  --theme-header-link: #484860;
+  --theme-header-hover-background: #f6f2ff;
+  --theme-header-line: #e4e4ec;
+  --theme-header-field-background: #fafafc;
+  --theme-header-field-border: #85859f;
+  --theme-mark-image: none;
+
+  /* The project sidebar: a light violet rail. */
+  --theme-sidebar-width: 232px;
+  --theme-sidebar-background: #f4f2fb;
+  --theme-sidebar-line: #e0dbf0;
+  --theme-sidebar-tile: linear-gradient(135deg, var(--theme-accent-7), var(--theme-accent-4));
+  --theme-sidebar-hover-background: rgba(95, 53, 196, 0.08);
+  --theme-sidebar-selected-background: #e6dcff;
+  --theme-sidebar-selected-ink: #3a1d85;
+  --theme-sidebar-selected-edge: var(--theme-accent-6);
+
+  /* Buttons that are not the primary: white with a grey border. Delete buttons: a tint of red. */
+  --theme-button-background: #ffffff;
+  --theme-button-border: #c9c9d8;
+  --theme-button-ink: #32324a;
+  --theme-danger-soft: #fff0f0;
+  --theme-danger-soft-border: #ffd0d0;
+  --theme-danger-ink: #a61e1e;
+
+  /* Focus: a violet outline with a faint halo. */
+  --theme-focus: var(--theme-accent-6);
+  --theme-focus-halo: rgba(118, 71, 224, 0.25);
+
+  /* Meaning. Status ids in a default Redmine: 1 New, 2 In Progress, 3 Resolved, 4 Feedback, 5 Closed, 6 Rejected. */
+  --theme-status-new: #6b7388;
+  --theme-status-in-progress: #7647e0;
+  --theme-status-resolved: #15803d;
+  --theme-status-feedback: #b45309;
+  --theme-status-closed: #3a3a52;
+  --theme-status-rejected: #b42318;
+  --theme-success: #15803d;
+  --theme-warning: #c2570c;
+  --theme-danger: #c92a2a;
+  --theme-danger-strong: #b3123f;       /* white text on it reaches AA */
+  --theme-success-ink: #14633a;
+  --theme-success-soft: #e3f4ea;
+  --theme-caution-ink: #7a4a06;
+  --theme-caution-soft: #fdf1dc;
+  --theme-chip-ink-mix: #000000;
+  --theme-chip-ink-share: 60%;
+  --theme-chip-fill-share: 14%;
+
+  /* Messages, avatars, activity markers, search highlights, diffs and the Gantt chart. */
+  --theme-flash-success-background: #e3f4ea;
+  --theme-flash-success-border: #9ed4b3;
+  --theme-flash-success-ink: #14633a;
+  --theme-flash-warning-background: #fdf1dc;
+  --theme-flash-warning-border: #ecc98a;
+  --theme-flash-warning-ink: #6f4306;
+  --theme-avatar-color-0: #c92a2a;      /* Redmine's red, orange and pink avatars, darkened to reach 4.5:1 with white */
+  --theme-avatar-color-1: #b4540a;
+  --theme-avatar-color-7: #c2255c;
+  --theme-activity-edit-ink: #4c28a3;
+  --theme-activity-wiki-ink: #8a3d0a;
+  --theme-search-highlight-ink: var(--theme-ink);
+  --theme-diff-removed: #fde8e8;
+  --theme-diff-added: #e3f4ea;
+  --theme-gantt-late: #e8964a;
+  --theme-gantt-late-label: #8a3d0a;
+
+  /* Shape and depth: 6px corners on controls, 10px on panels, flat cards, one shadow for things that float. */
+  --theme-radius-highlight: 3px;
+  --theme-radius-inline: 4px;
+  --theme-radius-small: 6px;
+  --theme-radius: 8px;
+  --theme-radius-panel: 10px;
+  --theme-radius-pill: 6px;
+  --theme-radius-round: 50%;
+  --theme-border-width: 1px;
+  --theme-border-style: solid;
+  --theme-shadow-card: none;
+  --theme-shadow-popup: 0 12px 32px rgba(28, 28, 46, 0.14), 0 0 1px rgba(28, 28, 46, 0.2);
+  --theme-shadow-primary-button: none;
+  --theme-shadow-header-scrolled: 0 2px 8px rgba(28, 28, 46, 0.08);
+  --theme-space-small: 8px;
+  --theme-space: 24px;
+  --theme-space-large: 32px;
+  --theme-density: 1;
+  --theme-top-bar-height: 48px;
+  --theme-project-bar-height: 48px;
+
+  /* Type: the bundled Noto Sans and Noto Sans Mono (in fonts/, SIL Open Font License 1.1), the system's own fonts after them.
+     --theme-font-size is the size of running text; every other text size follows it. */
+  --theme-font-size: 16px;
+  --theme-font: "Noto Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --theme-font-monospace: "Noto Sans Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --theme-title-font: var(--theme-font);
+  --theme-title-weight: 700;
+  --theme-code-background: #f4f3f9;
+  --theme-code-ink: #1c1c2e;
+  --theme-syntax-keyword: #006b00;
+
+  /* Icons drawn in a stylesheet carry their colour inside the image. */
+  --theme-select-arrow-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a5a72' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  --theme-search-field-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a5a72' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+  --theme-project-jump-arrow-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a5a72' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+  /* Redmine's grey ramp (--oc-gray-0 to -9) and its white: Amethyst's cool, violet-tinted neutrals. */
+  --theme-redmine-white: #ffffff;
+  --theme-neutral-0: #fafafc;
+  --theme-neutral-1: #f5f5f9;
+  --theme-neutral-2: #eeeef4;
+  --theme-neutral-3: #e4e4ec;
+  --theme-neutral-4: #dadae5;
+  --theme-neutral-5: #67677f;
+  --theme-neutral-6: #5a5a72;
+  --theme-neutral-7: #484860;
+  --theme-neutral-8: #32324a;
+  --theme-neutral-9: #1c1c2e;
+  --theme-neutral-9-rgb: 28, 28, 46;
+
+  /* Amethyst's own: the six colours of the round assignee initials (white text on each reaches 4.5:1, so they stay the same
+   * in dark), the tracker squares, and the status group pills of a grouped issue list (white text on each). */
+  --theme-initials-ink: #ffffff;
+  --theme-initials-tone-0: #5f35c4;
+  --theme-initials-tone-1: #b0267f;
+  --theme-initials-tone-2: #0b7a75;
+  --theme-initials-tone-3: #b4540a;
+  --theme-initials-tone-4: #2554c7;
+  --theme-initials-tone-5: #15803d;
+  --theme-tracker-bug: #e5484d;
+  --theme-tracker-feature: #7647e0;
+  --theme-tracker-support: #0b8484;
+  --theme-priority-low: #6f819c;
+  --theme-priority-normal: #4f7fe0;
+  --theme-priority-high: #d9731a;
+  --theme-priority-urgent: #d63a3f;
+  --theme-priority-immediate: #b3123f;
+  --theme-group-ink: #ffffff;
+  --theme-group-new: #6b7388;
+  --theme-group-in-progress: #7647e0;
+  --theme-group-resolved: #15803d;
+  --theme-group-feedback: #b45309;
+  --theme-group-closed: #3a3a52;
+  --theme-group-rejected: #b42318;
+  --theme-group-immediate: #b3123f;
+  --theme-group-urgent: #c92a2a;
+  --theme-group-high: #b45309;
+  --theme-group-normal: #2f5fd0;
+  --theme-group-low: #5a6b85;
+}
+
+/* Redmine's palette, pointed at the tokens. Redmine 7 colours itself with the Open Color variables (--oc-*) and a few
+ * --color-* names, so remapping them recolours the parts of Redmine the theme does not style by hand. */
+:root {
+  --fonts-main: var(--theme-font);
+
+  --oc-white: var(--theme-redmine-white);
+  --oc-gray-0: var(--theme-neutral-0);
+  --oc-gray-1: var(--theme-neutral-1);
+  --oc-gray-2: var(--theme-neutral-2);
+  --oc-gray-3: var(--theme-neutral-3);
+  --oc-gray-4: var(--theme-neutral-4);
+  --oc-gray-5: var(--theme-neutral-5);
+  --oc-gray-6: var(--theme-neutral-6);
+  --oc-gray-7: var(--theme-neutral-7);
+  --oc-gray-8: var(--theme-neutral-8);
+  --oc-gray-9: var(--theme-neutral-9);
+  --oc-gray-9-rgb: var(--theme-neutral-9-rgb);
+
+  --oc-blue-0: var(--theme-accent-0);
+  --oc-blue-1: var(--theme-accent-1);
+  --oc-blue-2: var(--theme-accent-2);
+  --oc-blue-3: var(--theme-accent-3);
+  --oc-blue-4: var(--theme-accent-4);
+  --oc-blue-5: var(--theme-accent-5);
+  --oc-blue-6: var(--theme-accent-6);
+  --oc-blue-7: var(--theme-redmine-accent);
+  --oc-blue-8: var(--theme-accent-7);
+  --oc-blue-9: var(--theme-link); /* Redmine colours its links with step 9 */
+  --oc-blue-1-rgb: var(--theme-accent-1-rgb);
+  --oc-blue-7-rgb: var(--theme-redmine-accent-rgb);
+  --oc-indigo-0: var(--theme-accent-0);
+  --oc-indigo-1: var(--theme-accent-1);
+  --oc-indigo-2: var(--theme-accent-2);
+  --oc-indigo-5: var(--theme-accent-5);
+  --oc-indigo-9: var(--theme-accent-9);
+
+  --color-top-menu-background: var(--theme-header-background-solid);
+  --color-header-background: var(--theme-header-background-solid);
+}

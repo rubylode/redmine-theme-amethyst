@@ -1,0 +1,26 @@
+/* Rubylode Amethyst, a theme for Redmine 7: the phone rules and the theme's layers
+ * Copyright (C) 2026  Nick Gorbikoff
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. */
+
+/* Redmine links "responsive" after "application" and "dropdown" and takes the theme's file of that name when there is one.
+ * This one keeps Redmine's phone rules, then loads the theme's layers after them. See application.css for the map. */
+
+@import url(/responsive.css);
+@import url(structure.css);
+@import url(plugins.css);
+@import url(sidebar-layout.css);
+@import url(dark.css);
+@import url(flourishes.css);

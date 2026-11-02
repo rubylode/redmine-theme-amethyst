@@ -1,0 +1,250 @@
+/* Rubylode Amethyst, a theme for Redmine 7
+ * Copyright (C) 2026  Nick Gorbikoff
+ * GNU General Public License, version 2 or later. See the LICENSE file.
+ * Generated from the shared base of the Rubylode themes: a change made here is overwritten by the next build. */
+
+/* The sidebar layout, for a theme whose theme.json says "layout": "sidebar". Loaded after plugins.css.
+ * From 1100px up the project name and its menu are a sidebar down the left of the page, full height, and the global links,
+ * the New issue button, the search, the project switcher and the account are one bar across the top. Narrower screens keep
+ * the base's two-row header (and Redmine's slide-out menu below 900px), and so does the sign-in page.
+ * The header's and the top menu's children become grid items of the page wrapper, so the base's rows are switched off here.
+ * Tokens: --theme-sidebar-width, -background, -line, -tile, -hover-background, -selected-background, -selected-ink and
+ * -selected-edge. */
+@media screen and (min-width: 1100px) {
+  body:not(.controller-account) #wrapper {
+    display: grid;
+    grid-template-columns: var(--theme-sidebar-width) minmax(0, 1fr) auto auto;
+    grid-template-rows: auto auto auto 1fr auto;
+    grid-template-areas:
+      "top    top  search profile"
+      "brand  main main   main"
+      "menu   main main   main"
+      "filler main main   main"
+      "filler footer footer footer";
+    background: linear-gradient(
+      to right,
+      var(--theme-sidebar-background) calc(var(--theme-sidebar-width) - 1px),
+      var(--theme-sidebar-line) calc(var(--theme-sidebar-width) - 1px) var(--theme-sidebar-width),
+      var(--theme-page) var(--theme-sidebar-width)
+    );
+  }
+  body:not(.controller-account) #header, body:not(.controller-account) nav#top-menu.top-menu { display: contents; }
+  body:not(.controller-account) nav#top-menu.top-menu::before { display: none; }
+
+  /* The top bar: three grid items in one row, each painted on its own. */
+  body:not(.controller-account) nav#top-menu .general-menu {
+    grid-area: top;
+    display: flex;
+    align-items: center;
+    min-block-size: var(--theme-top-bar-height);
+    margin: 0;
+    padding: 0 12px;
+    background: var(--theme-header-background);
+    border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-header-line);
+  }
+  body:not(.controller-account) .top-menu__links ul { flex-direction: row; gap: 2px; }
+  body:not(.controller-account) #header #quick-search {
+    grid-area: search;
+    position: static;
+    inset: auto;
+    float: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    block-size: auto;
+    min-block-size: var(--theme-top-bar-height);
+    margin: 0;
+    padding: 0 8px;
+    background: var(--theme-header-background);
+    border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-header-line);
+  }
+  body:not(.controller-account) #header #quick-search input[type=text] { inline-size: 200px; padding-inline-start: 32px; }
+  body:not(.controller-account) #header #quick-search #project-jump.drdn { inline-size: 184px; }
+  body:not(.controller-account) nav#top-menu .profile-menu {
+    grid-area: profile;
+    display: flex;
+    align-items: center;
+    inline-size: auto;
+    min-block-size: var(--theme-top-bar-height);
+    margin: 0;
+    padding: 0 16px 0 4px;
+    background: var(--theme-header-background);
+    border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-header-line);
+  }
+  body.page-scrolled:not(.controller-account) nav#top-menu .general-menu,
+  body.page-scrolled:not(.controller-account) #header #quick-search,
+  body.page-scrolled:not(.controller-account) nav#top-menu .profile-menu { box-shadow: var(--theme-shadow-header-scrolled); }
+
+  /* The sidebar: a tile and the project name, then its menu. */
+  body:not(.controller-account) #header h1,
+  body:not(.controller-account):not(.has-main-menu) #header h1 {
+    grid-area: brand;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px 10px;
+    max-inline-size: none;
+    min-block-size: 0;
+    padding: 16px 16px 10px;
+    background: transparent;
+    color: var(--theme-ink);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-align: start;
+  }
+  body:not(.controller-account) #header h1::before {
+    content: "";
+    flex: none;
+    inline-size: 32px;
+    block-size: 32px;
+    border-radius: var(--theme-radius-small);
+    background: var(--theme-sidebar-tile);
+  }
+  body:not(.controller-account) #header h1 .breadcrumbs { display: none; }
+  body:not(.controller-account) #main-menu {
+    grid-area: menu;
+    position: static;
+    overflow: visible;
+    padding: 8px 8px 14px;
+    background: transparent;
+  }
+  body:not(.controller-account) #main-menu .tabs-buttons { display: none; }
+  body:not(.controller-account) #main-menu ul { flex-direction: column; align-items: stretch; gap: 1px; min-block-size: 0; }
+  body:not(.controller-account) #main-menu li { display: block; margin: 0; padding: 0; }
+  body:not(.controller-account) #main-menu li a {
+    display: block;
+    block-size: auto;
+    padding: 7px 12px;
+    border: 0;
+    border-radius: var(--theme-radius-small);
+    color: var(--theme-header-link);
+    font-weight: 500;
+  }
+  body:not(.controller-account) #main-menu li a:hover { background: var(--theme-sidebar-hover-background); color: var(--theme-ink); text-decoration: none; }
+  body:not(.controller-account) #main-menu li a.selected,
+  body:not(.controller-account) #main-menu li a.selected:hover {
+    border: 0;
+    background: var(--theme-sidebar-selected-background);
+    color: var(--theme-sidebar-selected-ink);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--theme-sidebar-selected-edge);
+  }
+  /* The "+" menu is the sidebar's one button, and it opens to the right of the sidebar, not over the items below it. */
+  body:not(.controller-account) #main-menu li:has(> a.new-object) { position: relative; margin: 0; padding: 0 0 10px; }
+  body:not(.controller-account) #main-menu li a.new-object,
+  body:not(.controller-account) #main-menu li a.new-object:hover {
+    block-size: auto;
+    padding: 7px 12px;
+    border: 0;
+    border-radius: var(--theme-radius-small);
+    background: var(--theme-primary-background);
+    color: var(--theme-ink-on-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    box-shadow: none;
+  }
+  body:not(.controller-account) #main-menu li a.new-object:hover { background: var(--theme-primary-background-hover); }
+  body:not(.controller-account) #main-menu li:has(> a.new-object) .menu-children {
+    inset-block: 0 auto;
+    inset-inline: calc(100% - 4px) auto;
+    inline-size: 220px;
+    margin: 0;
+    padding: 6px;
+  }
+  body:not(.controller-account) #main-menu .menu-children li a { padding: 7px 10px; background: transparent; color: var(--theme-ink); }
+  body:not(.controller-account) #main-menu .menu-children li a:hover { background: var(--theme-surface-hover); color: var(--theme-accent-8); }
+
+  body:not(.controller-account) #main { grid-area: main; }
+  body:not(.controller-account) #footer { grid-area: footer; }
+
+  /* Pages with no project menu (My page, the welcome page): the global links leave the top bar and become the sidebar's menu,
+     under the tile and the name. The top bar keeps its place, painted by the menu bar's ::before. Help comes back here, at
+     the widths where the top bar drops it. */
+  body:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) nav#top-menu.top-menu::before {
+    content: "";
+    display: block;
+    grid-area: top;
+    inline-size: auto;
+    block-size: auto;
+    min-block-size: var(--theme-top-bar-height);
+    background: var(--theme-header-background);
+    border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-header-line);
+  }
+  body.page-scrolled:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) nav#top-menu.top-menu::before { box-shadow: var(--theme-shadow-header-scrolled); }
+  body:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) nav#top-menu .general-menu {
+    grid-area: menu;
+    display: block;
+    min-block-size: 0;
+    margin: 0;
+    padding: 8px 8px 14px;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  body:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links ul { flex-direction: column; align-items: stretch; gap: 1px; }
+  body:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links li { display: block; margin: 0; padding: 0; }
+  body:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links a,
+  body:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links a.help {
+    display: block;
+    padding: 7px 12px;
+    border-radius: var(--theme-radius-small);
+    color: var(--theme-header-link);
+    font-weight: 500;
+  }
+  body:not(.controller-account):not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links a:hover {
+    background: var(--theme-sidebar-hover-background);
+    color: var(--theme-ink);
+    text-decoration: none;
+  }
+  body.controller-welcome:not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links a.home,
+  body.controller-welcome:not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links a.home:hover,
+  body.controller-my.action-page:not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links a.my-page,
+  body.controller-my.action-page:not(.has-main-menu):not(:has(#admin-menu)) .general-menu .top-menu__links a.my-page:hover {
+    background: var(--theme-sidebar-selected-background);
+    color: var(--theme-sidebar-selected-ink);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--theme-sidebar-selected-edge);
+  }
+
+  /* Redmine's right-hand sidebar (custom queries, watchers) is 200px wide here instead of 260px, and the issue list's subject
+     may wrap down to 10em, which leaves the other columns more room between the two sidebars. Where the list still does
+     not fit, the list scrolls sideways inside its wrapper, and the right edge fades while there is more to scroll to. */
+  body:not(.controller-account):not(:has(#admin-menu)) #main:not(.nosidebar) #sidebar { inline-size: 172px; }
+  body:not(.controller-account) table.list.issues td.subject { min-inline-size: 9em; }
+  body:not(.controller-account) table.list.issues > thead > tr > th, body:not(.controller-account) table.list.issues > tbody > tr > td { padding-inline: 8px; }
+  @supports (animation-timeline: scroll()) {
+    body:not(.controller-account) #content .autoscroll {
+      animation: sidebar-layout-scroll-edge linear both;
+      animation-timeline: scroll(self inline);
+    }
+  }
+  @keyframes sidebar-layout-scroll-edge {
+    from, 98% { mask-image: linear-gradient(to left, transparent, #000 48px); }
+    to { mask-image: none; }
+  }
+  /* The profile dropdown opens downwards from the top bar, aligned to the right edge. */
+  body:not(.controller-account) #account .dropdown-content { inset-inline: auto 0; }
+
+  /* Administration: the admin menu takes the project menu's place. Subpages keep it in the right-hand sidebar, which moves to the
+     left; the index keeps it in the page, so the page contents become grid items of the wrapper. */
+  body:not(.controller-account):has(#admin-menu) #main { display: contents; }
+  body:not(.controller-account):has(#admin-menu) #sidebar { grid-area: menu; inline-size: auto; padding: 8px 8px 14px; border: 0; background: transparent; }
+  body:not(.controller-account):has(#admin-menu) #sidebar #sidebar-wrapper { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  body:not(.controller-account):has(#admin-menu) #sidebar-switch-panel { display: none; }
+  body:not(.controller-account):has(#admin-menu) #sidebar h3 { padding-inline: 12px; }
+  body:not(.controller-account):has(#admin-menu) #content { grid-area: main; min-inline-size: 0; }
+  body:not(.controller-account):has(#content #admin-menu) #content { display: contents; }
+  body:not(.controller-account):has(#content #admin-menu) #content > h2 { grid-area: main; margin: 0; padding: 24px 32px 0; }
+  body:not(.controller-account):has(#content #admin-menu) #admin-menu { grid-area: menu; padding: 8px 8px 14px; background: transparent; }
+  #admin-menu a, #sidebar #admin-menu a { display: block; padding: 7px 12px; border-radius: var(--theme-radius-small); }
+  :where(#main) #admin-menu a:hover { background: var(--theme-sidebar-hover-background); color: var(--theme-ink); text-decoration: none; }
+  :where(#main) #admin-menu a.selected, :where(#main) #admin-menu a.selected:hover {
+    background: var(--theme-sidebar-selected-background);
+    color: var(--theme-sidebar-selected-ink);
+    box-shadow: inset 3px 0 0 var(--theme-sidebar-selected-edge);
+  }
+}

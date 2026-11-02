@@ -13,6 +13,30 @@ admin = User.find_by_login("admin")
 admin.update_columns(must_change_passwd: false)
 User.current = admin
 
+# ---- Rubylode plugins: set up on every run, so a demo that gains a plugin later picks it up ----
+
+plugin_installed = ->(id) { Redmine::Plugin.registered_plugins.key?(id) }
+# The status plugins point at an address where nothing answers, so their blocks and pages show the "unavailable" state.
+unreachable = "http://127.0.0.1:9"
+{
+  redmine_rubylode_uptime_kuma: { "metrics_url" => "#{unreachable}/metrics",
+                                  "services" => "Tiles API | https://example.com/tiles | The map tiles | Tiles API\nSearch | https://example.com/search | Search and geocoding | Search" },
+  redmine_rubylode_glitchtip: { "base_url" => unreachable, "organization_slug" => "demo" },
+  redmine_rubylode_windmill: { "windmill_url" => unreachable, "workspace_id" => "demo" },
+  redmine_rubylode_beszel: { "hub_url" => unreachable }
+}.each do |id, values|
+  next unless plugin_installed.(id)
+
+  current = (Setting.send("plugin_#{id}") || {}).to_h.stringify_keys
+  Setting.send("plugin_#{id}=", current.merge("allowed_hosts" => "127.0.0.1", "allow_plain_http" => "1", "timeout_seconds" => "1").merge(values))
+end
+stats_plugin = plugin_installed.(:redmine_rubylode_stats)
+if stats_plugin
+  Setting.default_projects_modules = Setting.default_projects_modules | ["rubylode_stats"]
+  Role.where(builtin: 0).each { |role| role.add_permission!(:view_rubylode_stats) }
+  Project.find_each { |project| project.enable_module!("rubylode_stats") }
+end
+
 if News.exists?(title: "1.1 is two weeks out") # the last thing this script creates
   puts "demo data already loaded"
   return
@@ -46,6 +70,7 @@ user_for = ->(login) { login ? people.fetch(login).first : nil }
 
 module_names = %w[issue_tracking time_tracking news documents files wiki gantt calendar]
 module_names << "rubylode_todo" if todo_plugin
+module_names << "rubylode_stats" if stats_plugin
 
 make_project = lambda do |name, identifier, description, parent: nil|
   project = Project.new(name: name, identifier: identifier, description: description, is_public: true, enabled_module_names: module_names)

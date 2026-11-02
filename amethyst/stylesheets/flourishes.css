@@ -1,0 +1,157 @@
+/* Rubylode Amethyst, a theme for Redmine 7
+ * Copyright (C) 2026  Nick Gorbikoff
+ * GNU General Public License, version 2 or later. See the LICENSE file.
+ * Generated from the shared base of the Rubylode themes: a change made here is overwritten by the next build. */
+
+/* Amethyst's own touches, the ones tokens cannot express. The light sidebar is the base's sidebar layout ("layout": "sidebar"
+ * in theme.json), so what is left here is:
+ *  1. A violet edge on the issue card and the top of the sign-in card.
+ *  2. The issue list as a task list: a status circle, a priority flag and a tracker square as plain cells, and a coloured
+ *     pill on each group row.
+ *  3. The round assignee initials and the view tabs that extra.js adds.
+ *  4. The phone slide-out menu, dark in both schemes. */
+
+/* ==========================================================================
+   1. The violet edges
+   ========================================================================== */
+div.issue.details { border-inline-start-color: var(--theme-accent-6); }
+#login-form { border-block-start: 4px solid var(--theme-accent-6); }
+
+/* ==========================================================================
+   2. The issue list as a task list
+   ========================================================================== */
+/* Status and priority are plain cells; the base draws chips. */
+table.list.issues > tbody > tr.issue > td.status,
+table.list.issues > tbody > tr.issue:is(.priority-1, .priority-2, .priority-3, .priority-4, .priority-5) > td.priority {
+  inline-size: auto;
+  background-image: none;
+  background-clip: border-box;
+  color: var(--theme-ink);
+  font-size: inherit;
+  font-weight: 400;
+}
+table.list.issues > tbody > tr.issue > td.status::after,
+table.list.issues > tbody > tr.issue > td.priority::after { display: none; }
+
+/* Status: an empty circle for New, Feedback and Rejected, a full one for In Progress, Resolved and Closed. */
+table.list.issues > tbody > tr.issue > td.status::before {
+  box-sizing: border-box;
+  inline-size: 12px;
+  block-size: 12px;
+  margin: 0 7px 0 0;
+  border: 2px solid var(--chip);
+  border-radius: var(--theme-radius-round);
+  background: transparent;
+  vertical-align: -1px;
+}
+table.list.issues > tbody > tr.issue:is(.status-2, .status-3, .status-5) > td.status::before { background: var(--chip); }
+
+/* Priority: a flag in the level's colour before the name. */
+table.list.issues > tbody > tr.issue { --priority-colour: var(--theme-priority-low); }
+table.list.issues > tbody > tr.issue.priority-2 { --priority-colour: var(--theme-priority-normal); }
+table.list.issues > tbody > tr.issue.priority-3 { --priority-colour: var(--theme-priority-high); }
+table.list.issues > tbody > tr.issue.priority-4 { --priority-colour: var(--theme-priority-urgent); }
+table.list.issues > tbody > tr.issue.priority-5 { --priority-colour: var(--theme-priority-immediate); }
+table.list.issues > tbody > tr.issue[class*="priority-"] > td.priority::before {
+  inline-size: auto;
+  block-size: auto;
+  margin: 0 6px 0 0;
+  background: none;
+  content: "\2691";
+  color: var(--priority-colour);
+  vertical-align: baseline;
+}
+
+/* Tracker: a small coloured square (Redmine's default ids 1 Bug, 2 Feature, 3 Support). */
+tr.issue.tracker-1 { --tracker-colour: var(--theme-tracker-bug); }
+tr.issue.tracker-2 { --tracker-colour: var(--theme-tracker-feature); }
+tr.issue.tracker-3 { --tracker-colour: var(--theme-tracker-support); }
+table.list td.tracker::before {
+  content: "";
+  display: inline-block;
+  inline-size: 10px;
+  block-size: 10px;
+  margin-inline-end: 7px;
+  border-radius: 3px;
+  background: var(--tracker-colour, var(--theme-line-strong));
+}
+
+/* Group rows: a coloured pill and a count. The pill's colour comes from the group's name (extra.js writes data-group). */
+table.list tr.group span.name {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+  background: var(--group-colour, var(--theme-group-low));
+  color: var(--theme-group-ink);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+table.list tr.group[data-group-status] span.name::before { display: none; }
+table.list tr.group span.badge-count { background: transparent; color: var(--theme-ink-muted); font-weight: 600; }
+tr.group[data-group="new"] { --group-colour: var(--theme-group-new); }
+tr.group[data-group="in-progress"] { --group-colour: var(--theme-group-in-progress); }
+tr.group[data-group="resolved"] { --group-colour: var(--theme-group-resolved); }
+tr.group[data-group="feedback"] { --group-colour: var(--theme-group-feedback); }
+tr.group[data-group="closed"] { --group-colour: var(--theme-group-closed); }
+tr.group[data-group="rejected"] { --group-colour: var(--theme-group-rejected); }
+tr.group[data-group="immediate"] { --group-colour: var(--theme-group-immediate); }
+tr.group[data-group="urgent"] { --group-colour: var(--theme-group-urgent); }
+tr.group[data-group="high"] { --group-colour: var(--theme-group-high); }
+tr.group[data-group="normal"] { --group-colour: var(--theme-group-normal); }
+tr.group[data-group="low"] { --group-colour: var(--theme-group-low); }
+
+/* ==========================================================================
+   3. Assignee initials and view tabs, which extra.js adds
+   ========================================================================== */
+.assignee-initials {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 22px;
+  block-size: 22px;
+  margin-inline-end: 6px;
+  border-radius: var(--theme-radius-round);
+  background: var(--theme-initials-tone-0);
+  color: var(--theme-initials-ink);
+  font-size: 0.625rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.assignee-initials.tone-1 { background: var(--theme-initials-tone-1); }
+.assignee-initials.tone-2 { background: var(--theme-initials-tone-2); }
+.assignee-initials.tone-3 { background: var(--theme-initials-tone-3); }
+.assignee-initials.tone-4 { background: var(--theme-initials-tone-4); }
+.assignee-initials.tone-5 { background: var(--theme-initials-tone-5); }
+/* In a list the initials stand in for the name, which stays in the page for screen readers and shows as a tooltip. */
+table.list td.assigned_to { white-space: nowrap; }
+table.list td.assigned_to a.assignee-name {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Tabs above the list: Issues, Gantt, Calendar, Activity. */
+nav.view-tabs { display: flex; gap: 4px; margin-block: 0 14px; border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line); }
+nav.view-tabs a, nav.view-tabs a:visited {
+  margin-block-end: -1px;
+  padding: 8px 14px;
+  border-block-end: 2px solid transparent;
+  color: var(--theme-ink-muted);
+}
+nav.view-tabs a:hover { color: var(--theme-ink); text-decoration: none; }
+nav.view-tabs a.selected { border-color: var(--theme-accent-6); color: var(--theme-link); font-weight: 600; }
+
+/* ==========================================================================
+   4. The phone slide-out menu: dark violet in both schemes
+   ========================================================================== */
+body .flyout-menu { background-color: #2a2540; color: #ddd8f2; }
+body .flyout-menu h3 { background-color: rgba(255, 255, 255, 0.07); border-block-color: #2a2540; color: #ddd8f2; }
+body .flyout-menu a, body .flyout-menu a:link, body .flyout-menu a:visited, body .flyout-menu .icon-label { color: #ddd8f2; }
+body .flyout-menu a.selected, body .flyout-menu a.selected:link, body .flyout-menu a.selected:hover { background: transparent; color: #dccdff; box-shadow: none; }
+body .flyout-menu a:hover { color: #ffffff; }
+body .flyout-menu ul li { border-block-color: #3a3458; }
+body .flyout-menu .flyout-menu__avatar { background: #3a3458; }

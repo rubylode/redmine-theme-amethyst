@@ -1,0 +1,212 @@
+/* Rubylode Amethyst, a theme for Redmine 7
+ * Copyright (C) 2026  Nick Gorbikoff
+ * GNU General Public License, version 2 or later. See the LICENSE file.
+ * Generated from the shared base of the Rubylode themes: a change made here is overwritten by the next build. */
+
+/* Plugin harmony: the Rubylode plugins draw their blocks with their own custom properties, and this one file points those
+ * properties at the theme's tokens. Because the tokens change in dark mode (dark.css), the plugins' blocks follow without a
+ * dark block of their own here.
+ *
+ * Plugins load their stylesheets after the theme's. Where a plugin declares its defaults on its own block class (and again
+ * in its own dark-mode query), the selectors here carry "body" in front, which outranks the plugin's rule whatever the load
+ * order. The Projects plugin and the Stats plugin declare theirs on the root, so those are set on :root. A plugin that is not
+ * installed simply never matches. */
+
+/* ---- Rubylode Projects (project overview cards and the projects list) ---- */
+:root {
+  --rubylode-projects-page-background: var(--theme-page);
+  --rubylode-projects-card-background: var(--theme-surface);
+  --rubylode-projects-card-border-color: var(--theme-line);
+  --rubylode-projects-card-shadow: var(--theme-shadow-card);
+  --rubylode-projects-card-radius: var(--theme-radius-panel);
+  --rubylode-projects-text-color: var(--theme-ink);
+  --rubylode-projects-muted-text-color: var(--theme-ink-muted);
+  --rubylode-projects-label-text-color: var(--theme-ink-soft);
+  --rubylode-projects-accent-color: var(--theme-accent-6);
+  --rubylode-projects-opened-color: var(--theme-accent-2);
+  --rubylode-projects-closed-color: var(--theme-accent-6);
+  --rubylode-projects-done-color: var(--theme-success);
+  --rubylode-projects-meter-track-color: var(--theme-line);
+  --rubylode-projects-grid-line-color: var(--theme-line-soft);
+  --rubylode-projects-chip-background: var(--theme-accent-0);
+  --rubylode-projects-chip-border-color: var(--theme-accent-2);
+  --rubylode-projects-chip-text-color: var(--theme-accent-8);
+  --rubylode-projects-chip-radius: var(--theme-radius-small);
+  --rubylode-projects-waiting-background: var(--theme-line-soft);
+  --rubylode-projects-waiting-text-color: var(--theme-ink-soft);
+  --rubylode-projects-priority-background: var(--theme-danger-soft);
+  --rubylode-projects-priority-text-color: var(--theme-danger-ink);
+  --rubylode-projects-overdue-color: var(--theme-danger-ink);
+  --rubylode-projects-tooltip-background: var(--theme-surface);
+  --rubylode-projects-tooltip-text-color: var(--theme-ink);
+  --rubylode-projects-tooltip-border-color: var(--theme-line);
+  --rubylode-projects-tooltip-shadow: var(--theme-shadow-popup);
+  --rubylode-projects-highlight-color: color-mix(in srgb, var(--theme-secondary) 22%, transparent);
+  --rubylode-projects-progress-track-color: var(--theme-line);
+  --rubylode-projects-progress-fill-color: var(--theme-accent-4);
+  --rubylode-projects-bar-fill-color: var(--theme-accent-5);
+  --rubylode-projects-bar-track-color: var(--theme-line);
+  --rubylode-projects-sparkline-line-color: var(--theme-accent-6);
+  --rubylode-projects-sparkline-area-color: color-mix(in srgb, var(--theme-accent-4) 18%, transparent);
+  --rubylode-projects-sparkline-marker-color: var(--theme-ink-muted);
+}
+
+/* ---- Rubylode To-do: it mixes its quiet colours from the text colour; the theme gives them its own muted ink ---- */
+body .todo {
+  --todo-muted: var(--theme-ink-muted);
+  --todo-accent: var(--theme-link);
+}
+
+/* ---- Rubylode Home (My page) ---- */
+body .rubylode-home {
+  --rubylode-home-page-background: var(--theme-page);
+  --rubylode-home-card-background: var(--theme-surface);
+  --rubylode-home-card-border: var(--theme-line);
+  --rubylode-home-card-shadow: var(--theme-shadow-card);
+  --rubylode-home-card-radius: var(--theme-radius-panel);
+  --rubylode-home-text: var(--theme-ink);
+  --rubylode-home-text-muted: var(--theme-ink-muted);
+  --rubylode-home-accent: var(--theme-accent-6);
+  --rubylode-home-accent-strong: var(--theme-accent-8);
+  --rubylode-home-accent-soft: var(--theme-accent-0);
+  --rubylode-home-warning: var(--theme-danger-ink);
+  --rubylode-home-warning-soft: var(--theme-danger-soft);
+  --rubylode-home-caution: var(--theme-caution-ink);
+  --rubylode-home-caution-soft: var(--theme-caution-soft);
+  --rubylode-home-success: var(--theme-success-ink);
+  --rubylode-home-success-soft: var(--theme-success-soft);
+  --rubylode-home-neutral-soft: var(--theme-line-soft);
+  --rubylode-home-bar-track: var(--theme-line);
+  --rubylode-home-bar-fill: var(--theme-accent-4);
+  --rubylode-home-chip-radius: var(--theme-radius-pill);
+}
+/* The plugin paints My page with its page colour, falling back to a light grey where its block is absent (?view=classic) */
+html body.controller-my.action-page #content { background: var(--theme-page); }
+
+/* ---- Status blocks: Uptime Kuma, GlitchTip, Windmill and Beszel share one look ---- */
+body .rubylode-service-status {
+  --rubylode-uptime-kuma-text: var(--theme-ink);
+  --rubylode-uptime-kuma-text-muted: var(--theme-ink-muted);
+  --rubylode-uptime-kuma-border: var(--theme-line);
+  --rubylode-uptime-kuma-header-background: var(--theme-surface-sunken);
+  --rubylode-uptime-kuma-row-hover-background: var(--theme-surface-hover);
+  --rubylode-uptime-kuma-up-color: var(--theme-success-ink);
+  --rubylode-uptime-kuma-up-background: var(--theme-success-soft);
+  --rubylode-uptime-kuma-down-color: var(--theme-danger-ink);
+  --rubylode-uptime-kuma-down-background: var(--theme-danger-soft);
+  --rubylode-uptime-kuma-unknown-color: var(--theme-ink-muted);
+  --rubylode-uptime-kuma-unavailable-color: var(--theme-caution-ink);
+  --rubylode-uptime-kuma-unavailable-background: var(--theme-caution-soft);
+  --rubylode-uptime-kuma-link-color: var(--theme-link);
+  --rubylode-uptime-kuma-radius: var(--theme-radius);
+}
+body .rubylode-glitchtip-errors {
+  --rubylode-glitchtip-text: var(--theme-ink);
+  --rubylode-glitchtip-text-muted: var(--theme-ink-muted);
+  --rubylode-glitchtip-border: var(--theme-line);
+  --rubylode-glitchtip-header-background: var(--theme-surface-sunken);
+  --rubylode-glitchtip-row-hover-background: var(--theme-surface-hover);
+  --rubylode-glitchtip-clear-color: var(--theme-success-ink);
+  --rubylode-glitchtip-clear-background: var(--theme-success-soft);
+  --rubylode-glitchtip-attention-color: var(--theme-danger-ink);
+  --rubylode-glitchtip-attention-background: var(--theme-danger-soft);
+  --rubylode-glitchtip-fatal-color: var(--theme-danger-strong);
+  --rubylode-glitchtip-error-color: var(--theme-danger);
+  --rubylode-glitchtip-warning-color: var(--theme-warning);
+  --rubylode-glitchtip-info-color: var(--theme-status-new);
+  --rubylode-glitchtip-unknown-color: var(--theme-ink-muted);
+  --rubylode-glitchtip-unavailable-color: var(--theme-caution-ink);
+  --rubylode-glitchtip-unavailable-background: var(--theme-caution-soft);
+  --rubylode-glitchtip-link-color: var(--theme-link);
+  --rubylode-glitchtip-radius: var(--theme-radius);
+}
+body .rubylode-windmill-status {
+  --rubylode-windmill-text: var(--theme-ink);
+  --rubylode-windmill-text-muted: var(--theme-ink-muted);
+  --rubylode-windmill-border: var(--theme-line);
+  --rubylode-windmill-header-background: var(--theme-surface-sunken);
+  --rubylode-windmill-row-hover-background: var(--theme-surface-hover);
+  --rubylode-windmill-success-color: var(--theme-success-ink);
+  --rubylode-windmill-success-background: var(--theme-success-soft);
+  --rubylode-windmill-failure-color: var(--theme-danger-ink);
+  --rubylode-windmill-failure-background: var(--theme-danger-soft);
+  --rubylode-windmill-overdue-color: var(--theme-caution-ink);
+  --rubylode-windmill-overdue-background: var(--theme-caution-soft);
+  --rubylode-windmill-unknown-color: var(--theme-ink-muted);
+  --rubylode-windmill-link-color: var(--theme-link);
+  --rubylode-windmill-code-background: var(--theme-code-background);
+  --rubylode-windmill-radius: var(--theme-radius);
+}
+body .rubylode-beszel {
+  --rubylode-beszel-text: var(--theme-ink);
+  --rubylode-beszel-text-muted: var(--theme-ink-muted);
+  --rubylode-beszel-border: var(--theme-line);
+  --rubylode-beszel-header-background: var(--theme-surface-sunken);
+  --rubylode-beszel-row-hover-background: var(--theme-surface-hover);
+  --rubylode-beszel-up-color: var(--theme-success-ink);
+  --rubylode-beszel-up-background: var(--theme-success-soft);
+  --rubylode-beszel-down-color: var(--theme-danger-ink);
+  --rubylode-beszel-down-background: var(--theme-danger-soft);
+  --rubylode-beszel-unknown-color: var(--theme-ink-muted);
+  --rubylode-beszel-unavailable-color: var(--theme-caution-ink);
+  --rubylode-beszel-unavailable-background: var(--theme-caution-soft);
+  --rubylode-beszel-link-color: var(--theme-link);
+  --rubylode-beszel-warning-color: var(--theme-warning);
+  --rubylode-beszel-bar-track: var(--theme-line);
+  --rubylode-beszel-radius: var(--theme-radius);
+}
+
+/* ---- Rubylode Stats: the chart tooltip sits at the end of the body and reads these from the root ---- */
+:root {
+  --stats-tooltip-background: var(--theme-surface);
+  --stats-tooltip-color: var(--theme-ink);
+  --stats-tooltip-key-color: var(--theme-ink-muted);
+  --stats-tooltip-border: var(--theme-line);
+}
+/* The overview tiles colour a growing count with Redmine's red and a shrinking one with its green, which miss 4.5:1 on the
+ * page in both schemes; the theme's danger and success inks reach it. */
+body .stats-tile[data-direction=growing] :is(.stats-tile-value, .stats-tile-detail) { color: var(--theme-danger-ink); }
+body .stats-tile[data-direction=shrinking] :is(.stats-tile-value, .stats-tile-detail) { color: var(--theme-success-ink); }
+
+/* ---- Rubylode New issue button ----
+ * The plugin's script puts a.rubylode-new-issue-button first in #quick-search, which the theme lifts into the top bar, so the
+ * button sits just left of the search pill. The plugin's own rules are "#header a.rubylode-new-issue-button" and
+ * "#header #quick-search a.rubylode-new-issue-button" and load after the theme, so these carry "body" (and #quick-search
+ * where the plugin's does) to win. Desktop only: on phones the plugin hides the button and the slide-out menu has the link. */
+@media screen and (min-width: 900px) {
+  body #header #quick-search a.rubylode-new-issue-button { float: none; margin: 0; }
+  body #header a.rubylode-new-issue-button,
+  body #header a.rubylode-new-issue-button:visited {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    gap: 6px;
+    box-sizing: border-box;
+    block-size: 32px;
+    margin: 0;
+    padding: 0 14px 0 12px;
+    border: 1px solid var(--theme-primary);
+    border-radius: var(--theme-radius-pill);
+    background: var(--theme-primary-background);
+    background-color: var(--theme-primary);
+    color: var(--theme-ink-on-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: var(--theme-shadow-primary-button);
+  }
+  body #header a.rubylode-new-issue-button::before { content: "+"; font-size: 1.286rem; font-weight: 400; line-height: 1; }
+  body #header a.rubylode-new-issue-button:hover {
+    border-color: var(--theme-primary-hover);
+    background: var(--theme-primary-background-hover);
+    background-color: var(--theme-primary-hover);
+    color: var(--theme-ink-on-primary);
+    text-decoration: none;
+  }
+  /* Room for the button: the reserved width of the right side of the top bar grows by its width */
+  body:has(#header a.rubylode-new-issue-button) nav#top-menu.top-menu { --theme-search-width: 530px; }
+}
+@media screen and (min-width: 900px) and (max-width: 1179px) {
+  body:has(#header a.rubylode-new-issue-button) nav#top-menu.top-menu { --theme-search-width: 416px; }
+}

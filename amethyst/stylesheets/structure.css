@@ -1,0 +1,1316 @@
+/* Rubylode Amethyst, a theme for Redmine 7
+ * Copyright (C) 2026  Nick Gorbikoff
+ * GNU General Public License, version 2 or later. See the LICENSE file.
+ * Generated from the shared base of the Rubylode themes: a change made here is overwritten by the next build. */
+
+/* The page blocks. Loaded from responsive.css, after Redmine's own phone rules, so a rule here wins over Redmine's at the
+ * same specificity at every width. Colours, corners, fonts and sizes come from tokens.css; the dark values are in dark.css.
+ * Each numbered section can be read (and removed) on its own. Desktop means 900px and wider, where Redmine's phone layout
+ * ends. */
+
+/* ==========================================================================
+   1. Page and type
+   ========================================================================== */
+/* The type scale: the root is --theme-font-size (16px when a theme leaves it out), running text is 1rem, and every other text
+   size in the base is a rem value, so a theme changes all of them with the one token. */
+html { font-size: var(--theme-font-size, 16px); }
+html, body {
+  background: var(--theme-page);
+  color: var(--theme-ink);
+  font-family: var(--theme-font);
+  line-height: 1.5;
+}
+body { font-size: 1rem; }
+/* Redmine sizes lists at 0.8125rem; the base sets them a step larger, the size of the sidebar. */
+table.list, .table-list { font-size: 0.875rem; }
+/* Fields and buttons take the browser's own 13.33px unless told otherwise. */
+input, select, textarea, button { font-size: 0.9375rem; }
+#wrapper, #main { background: var(--theme-page); }
+#content, #sidebar { background: transparent; color: var(--theme-ink); }
+#content { padding: var(--theme-space) var(--theme-space-large) 22px; }
+h1, h2, h3, h4, #content h1, #content h2, #content h3, #content h4 { color: var(--theme-ink); font-family: var(--theme-title-font); letter-spacing: -0.01em; }
+#content > h2 { margin-block: 4px 12px; font-size: 1.5rem; font-weight: var(--theme-title-weight); }
+#content h3 { font-weight: 650; }
+a, a:link, a:visited { color: var(--theme-link); text-decoration: none; }
+a:hover, a:active { color: var(--theme-link-hover); text-decoration: underline; }
+pre, code, tt, kbd, samp, .sample-data td, body.textarea-monospace textarea.wiki-edit { font-family: var(--theme-font-monospace); font-variant-ligatures: none; }
+code, tt, kbd { font-size: 0.9em; }
+pre { font-size: 0.875rem; line-height: 1.55; }
+::selection { background: color-mix(in srgb, var(--theme-secondary) 40%, transparent); }
+#footer { background: transparent; border-block-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line); color: var(--theme-ink-muted); }
+#footer a { color: var(--theme-ink-muted); }
+
+/* Wiki text: one heading scale below the page title, framed tables, quiet inline code, light code blocks. */
+.wiki h1, .wiki h2, .wiki h3, .wiki h4 { color: var(--theme-ink); font-weight: 650; letter-spacing: -0.005em; }
+.wiki h1 { font-size: 1.4rem; }
+.wiki h2 { font-size: 1.15rem; border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line); padding-block-end: 4px; }
+.wiki h3 { font-size: 1.02rem; }
+.wiki code { padding: 1px 5px; border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-inline); background: var(--theme-surface-sunken); font-size: 0.929rem; }
+.wiki pre code, .wiki pre code.syntaxhl { padding: 0; border: 0; background: none; font-size: inherit; }
+pre, div.wiki pre, div.pre-wrapper pre, code.syntaxhl, div.wiki code.syntaxhl, div.pre-wrapper code {
+  background-color: var(--theme-code-background);
+  color: var(--theme-code-ink);
+}
+div.wiki pre, div.pre-wrapper pre { border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-small); padding: 10px 14px; }
+.syntaxhl .k { color: var(--theme-syntax-keyword); }
+.wiki blockquote, blockquote { border-inline-start: 3px solid var(--theme-accent-2); color: var(--theme-ink-soft); }
+.wiki a.wiki-page.new, a.wiki-page.new { color: var(--theme-danger-ink); }
+
+/* ==========================================================================
+   2. Header
+   Desktop: two rows. Row 1 (#top-menu) holds the theme's mark, the global links, the New issue button, the search and the
+   project switcher, and the account. #quick-search lives in #header in Redmine's markup, so it is lifted into row 1 with
+   absolute positioning. Row 2 (#header) holds the project name and the project tabs, with the "+" menu at the right.
+   Phones: Redmine's own 64px bar and slide-out menu, painted with the header colour.
+   ========================================================================== */
+nav.top-menu, #header, body #header { border-block-end: 0; }
+#header { background: var(--theme-header-background-solid); color: var(--theme-header-ink); }
+#header a, #header a:visited { color: var(--theme-header-link); }
+#header a:hover { color: var(--theme-header-ink); text-decoration: none; }
+#header h1 { color: var(--theme-header-ink); }
+#header h1 .breadcrumbs, #header h1 .breadcrumbs a { color: var(--theme-ink-muted); }
+body #header #project-jump .drdn-trigger, body #header a.mobile-toggle-button { color: var(--theme-header-ink); }
+nav.top-menu { background: var(--theme-header-background-solid); color: var(--theme-header-link); }
+.top-menu__links a, .top-menu__links a:link, .top-menu__links a:visited, #account .dropdown-trigger { color: var(--theme-header-link); }
+.top-menu__links a:hover, #account .dropdown-trigger:hover { color: var(--theme-header-ink); background-color: var(--theme-header-hover-background); text-decoration: none; }
+.top-menu__links svg.icon-svg, #account .dropdown-trigger .icon-svg { stroke: currentColor; }
+#account .dropdown-content { border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius); box-shadow: var(--theme-shadow-popup); background: var(--theme-surface); }
+#account .dropdown-content a, #account .dropdown-content a:visited { color: var(--theme-ink); }
+#account .dropdown-content a:hover { background: var(--theme-surface-hover); color: var(--theme-link-hover); }
+#account .dropdown-content .user-info .user-login { color: var(--theme-ink-muted); }
+
+/* The project tabs, at every width (phones hide them in favour of the slide-out menu). */
+#main-menu, #main-menu .tabs-buttons, #main-menu button.tab-left, #main-menu button.tab-right { background: transparent; }
+#main-menu li a { color: var(--theme-header-link); background: transparent; font-weight: 600; }
+#main-menu li a:hover { background: var(--theme-header-hover-background); color: var(--theme-header-ink); }
+#main-menu li a.selected, #main-menu li a.selected:hover { background: transparent; color: var(--theme-accent-8); box-shadow: none; }
+#main-menu .menu-children { background: var(--theme-surface); border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius); box-shadow: var(--theme-shadow-popup); overflow: hidden; }
+#main-menu .menu-children li a { background: var(--theme-surface); color: var(--theme-ink); border: 0; font-weight: 500; }
+#main-menu .menu-children li a:hover { background: var(--theme-surface-hover); color: var(--theme-accent-8); }
+#main-menu .tabs-buttons { background: var(--theme-surface); }
+#main-menu .tabs-buttons button { color: var(--theme-header-link); border: 0; background: var(--theme-surface); }
+
+@media screen and (min-width: 900px) {
+  /* Row 1 */
+  nav#top-menu.top-menu {
+    box-sizing: border-box;
+    block-size: var(--theme-top-bar-height);
+    padding-block: 0;
+    padding-inline: 24px;
+    gap: 16px;
+    justify-content: flex-start;
+    background: var(--theme-header-background);
+    border-block-end: 1px solid var(--theme-header-line);
+    font-size: 1rem;
+  }
+  /* The mark opens the bar: the image in --theme-mark-image. */
+  nav#top-menu.top-menu::before {
+    content: "";
+    flex: none;
+    inline-size: 26px;
+    block-size: 26px;
+    background: var(--theme-mark-image) no-repeat center / 26px 26px;
+  }
+  /* The links give way (and clip, never overlap) where the lifted search group sits */
+  nav#top-menu .general-menu { flex: 1 1 auto; min-inline-size: 0; overflow: hidden; gap: 2px; margin-inline-end: calc(var(--theme-search-width, 400px) + 12px); }
+  .top-menu__links ul { flex-wrap: nowrap; }
+  .top-menu__links a, .top-menu__links a:link, .top-menu__links a:visited {
+    margin: 0;
+    padding: 6px 10px;
+    border-radius: var(--theme-radius-small);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  /* The account takes a fixed width, so the lifted search group knows where to stop: the avatar when signed in, Sign in and
+     Register when not */
+  nav#top-menu .profile-menu { flex: none; justify-content: flex-end; inline-size: var(--theme-account-width); margin-inline-start: auto; }
+  body { --theme-account-width: 64px; }
+  body:has(.profile-menu a.login) { --theme-account-width: 170px; }
+  /* The account: Redmine draws the person's avatar or initials; a ring in the primary colour marks it. */
+  #account .dropdown-trigger { padding: 4px 6px; border-radius: var(--theme-radius-pill); }
+  #account .dropdown-trigger .avatar, #account .dropdown-trigger img.gravatar { box-shadow: 0 0 0 2px var(--theme-surface), 0 0 0 3.5px var(--theme-accent-3); }
+
+  /* Row 2 */
+  #header, body.has-main-menu #header {
+    display: flex;
+    align-items: center;
+    gap: 4px 24px;
+    min-block-size: var(--theme-project-bar-height);
+    padding: 0 24px;
+    background: var(--theme-surface);
+    border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  }
+  #header h1 {
+    flex: 0 0 auto;
+    max-inline-size: 30%;
+    min-block-size: 0;
+    padding: 0;
+    background: none;
+    font-size: 1.125rem;
+    font-weight: var(--theme-title-weight);
+    letter-spacing: -0.01em;
+  }
+  #header h1 .breadcrumbs { margin: 0; font-size: 0.786rem; font-weight: 500; letter-spacing: 0.02em; }
+  #main-menu {
+    position: relative;
+    inset: auto;
+    flex: 1 1 auto;
+    inline-size: auto;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: clip; /* tabs that do not fit stop at the scroll buttons; the "+" dropdown still opens below */
+  }
+  #main-menu .tabs-buttons { inset-inline-end: 0; padding-inline-start: 16px; background: linear-gradient(90deg, transparent, var(--theme-surface) 14px); }
+  #main-menu ul { display: flex; align-items: center; padding: 0; }
+  #main-menu li { margin: 0 2px 0 0; padding: 0; }
+  #main-menu li a {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    block-size: var(--theme-project-bar-height);
+    padding: 0 11px;
+    border-radius: 0;
+    border-block-end: 2px solid transparent;
+    font-size: 1rem;
+  }
+  #main-menu li a.selected, #main-menu li a.selected:hover {
+    border-image: var(--theme-selected-tab-border-image);
+    border-block-end: 2px solid var(--theme-accent-4);
+    border-inline: 0;
+    border-block-start: 0;
+  }
+  /* The "+" menu (other things to add) is a small outlined pill before the tabs, where Redmine puts it */
+  #main-menu li:has(> a.new-object) { position: relative; margin-inline-end: 8px; }
+  #main-menu li a.new-object, #main-menu li a.new-object:hover {
+    block-size: 30px;
+    margin: 0;
+    padding: 0 12px;
+    border: 1px solid var(--theme-line-strong);
+    border-radius: var(--theme-radius-pill);
+    background: var(--theme-surface);
+    color: var(--theme-ink-soft);
+    font-size: 1.286rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+  #main-menu li a.new-object:hover { background: var(--theme-surface-hover); border-color: var(--theme-accent-3); color: var(--theme-accent-8); }
+  #main-menu li:has(> a.new-object) .menu-children { inset-inline: 0 auto; inset-block-start: 100%; inline-size: 210px; margin-block-start: 6px; }
+  #main-menu .menu-children li a { block-size: auto; padding: 9px 16px; font-size: 1rem; border: 0; }
+
+  /* Row 1, right: the New issue button, the search and the project switcher, as pills (lifted out of row 2) */
+  #header #quick-search {
+    position: absolute;
+    inset-block-start: calc(-1 * var(--theme-top-bar-height));
+    inset-inline-end: calc(24px + var(--theme-account-width) + 12px);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    block-size: var(--theme-top-bar-height);
+    min-block-size: 0;
+    margin: 0;
+    padding: 0;
+  }
+  body:not(.has-main-menu) #header { min-block-size: 0; padding: 0; border: 0; }
+  body:not(.has-main-menu) #header h1 { display: none; }
+  #header #quick-search form { float: none; display: flex; margin: 0; }
+  #header #quick-search form label { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  #header #quick-search input[type=text] {
+    box-sizing: border-box;
+    inline-size: 200px;
+    block-size: 32px;
+    padding: 0 12px 0 32px;
+    border: 1px solid var(--theme-header-field-border);
+    border-radius: var(--theme-radius-pill);
+    background: var(--theme-header-field-background)
+      var(--theme-search-field-image)
+      no-repeat 11px 50%;
+    color: var(--theme-ink);
+    font-size: 0.9375rem;
+  }
+  #header #quick-search input[type=text]::placeholder { color: var(--theme-ink-muted); }
+  #header #quick-search input[type=text]:focus { background-color: var(--theme-surface); }
+  #header #quick-search #project-jump.drdn { float: none; inline-size: 180px; }
+  #header #project-jump .drdn-trigger {
+    box-sizing: border-box;
+    block-size: 32px;
+    padding: 0 28px 0 14px;
+    border: 1px solid var(--theme-header-field-border);
+    border-radius: var(--theme-radius-pill);
+    background: var(--theme-header-field-background)
+      var(--theme-project-jump-arrow-image)
+      no-repeat right 8px center;
+    color: var(--theme-ink);
+    font-size: 0.9375rem;
+    line-height: 30px;
+  }
+  #header #project-jump.expanded .drdn-trigger { background-image: none; }
+  #project-jump .drdn-content { inset-block-start: 100%; margin-block-start: 6px; border-radius: var(--theme-radius); box-shadow: var(--theme-shadow-popup); }
+}
+/* Below 1180px the bar gets tight: narrower fields, and Help leaves the bar (it stays in the phone menu and on wider windows). */
+@media screen and (min-width: 900px) and (max-width: 1179px) {
+  nav#top-menu.top-menu { --theme-search-width: 286px; }
+  #header #quick-search input[type=text] { inline-size: 100px; }
+  #header #quick-search #project-jump.drdn { inline-size: 176px; }
+  .top-menu__links a.help { display: none; }
+  .top-menu__links a, .top-menu__links a:link, .top-menu__links a:visited { padding-inline: 7px; }
+}
+
+/* Phones: the slide-out menu is a light panel with ink text. */
+body .flyout-menu { background-color: var(--theme-surface); color: var(--theme-ink); }
+body .flyout-menu h3 { background-color: var(--theme-surface-sunken); border-block-color: var(--theme-line); color: var(--theme-ink-muted); }
+body .flyout-menu a, body .flyout-menu a:link, body .flyout-menu a:visited, body .flyout-menu .icon-label { color: var(--theme-ink); }
+body .flyout-menu a.selected, body .flyout-menu a.selected:link { color: var(--theme-accent-8); font-weight: 700; }
+body .flyout-menu a:hover { color: var(--theme-link-hover); }
+body .flyout-menu ul li { border-block-color: var(--theme-line); }
+body .flyout-menu svg.icon-svg { stroke: currentColor; }
+body .flyout-menu .flyout-menu__avatar { background: var(--theme-surface-sunken); }
+@media screen and (max-width: 899px) {
+  body #header { background: var(--theme-header-background); background-color: var(--theme-header-background-solid); border-block-end: 1px solid var(--theme-header-line); }
+  body #header #quick-search { background: transparent; }
+  #content { padding: 16px 14px; }
+  body #header a.mobile-toggle-button { background-color: transparent; border-inline-start: 1px solid var(--theme-header-line); }
+}
+
+/* ==========================================================================
+   3. Sidebar: one light panel, small upper-case headings, the selected query highlighted
+   ========================================================================== */
+#sidebar { padding-inline: 20px 8px; padding-block-start: 4px; border-inline-start: 0; font-size: 0.875rem; }
+#sidebar h3 {
+  margin: 18px 0 6px;
+  color: var(--theme-ink-muted);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+#sidebar h3:first-child { margin-block-start: 6px; }
+#sidebar hr { background: var(--theme-line); }
+#sidebar ul li > a { display: block; margin-inline-start: -8px; padding: calc(3px * var(--theme-density)) 8px; border-radius: var(--theme-radius-small); line-height: 1.35; color: var(--theme-link); }
+#sidebar ul li > a:hover { background: var(--theme-surface-hover); color: var(--theme-link-hover); text-decoration: none; }
+#sidebar a.selected, #sidebar ul li a.selected, #sidebar a.selected:hover {
+  background: var(--theme-surface-hover);
+  color: var(--theme-accent-8);
+  font-weight: 650;
+}
+#sidebar a.selected svg.icon-svg { stroke: currentColor !important; }
+@media screen and (min-width: 900px) {
+  #sidebar #sidebar-wrapper {
+    padding: 10px 12px 14px 16px;
+    background: var(--theme-surface);
+    border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+    border-radius: var(--theme-radius-panel);
+    box-shadow: var(--theme-shadow-card);
+  }
+  #sidebar #sidebar-wrapper:not(:has(*)) { display: none; }
+  #sidebar { inline-size: 216px; }
+}
+#sidebar #watchers { margin-block-start: 14px; padding: 12px 0 0; border-block-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line); }
+#sidebar #watchers h3 { margin: 0 0 8px; }
+#sidebar #watchers ul { margin: 0; padding: 0; list-style: none; }
+#sidebar #watchers li { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: inherit; }
+#sidebar #watchers li a { display: inline; margin-inline-start: 0; padding: 0; }
+#sidebar #watchers li a:hover { background: none; }
+#sidebar #watchers li a.delete { margin-inline-start: auto; opacity: 0.55; }
+#sidebar #watchers li:hover a.delete { opacity: 1; }
+#sidebar-switch-button { color: var(--theme-ink-muted); }
+
+/* ==========================================================================
+   4. Tables: every list table and wiki table is a white panel with a header band, a hairline under each row, softer lines
+   between columns, faint stripes and a pale teal hover with a coloured edge.
+   ========================================================================== */
+table.list, #content .wiki table {
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--theme-radius);
+  box-shadow: var(--theme-shadow-card);
+  overflow: hidden;
+}
+table.list > thead > tr > th, table.list thead th, #content .wiki table th {
+  background: var(--theme-surface-sunken);
+  border: 0;
+  border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-inline-start: 1px solid var(--theme-line-soft);
+  color: var(--theme-ink-soft);
+  padding: calc(8px * var(--theme-density)) 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+#content .wiki table th { text-transform: none; letter-spacing: 0; font-size: 0.875rem; }
+table.list > thead > tr > th:first-child, #content .wiki table th:first-child { border-inline-start: 0; }
+table.list th a, table.list th a:visited { color: inherit; }
+table.list > tbody > tr > td, #content .wiki table > tbody > tr > td, #content .wiki table td {
+  background: transparent;
+  border: 0;
+  border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-inline-start: 1px solid var(--theme-line-soft);
+  padding: calc(7px * var(--theme-density)) 12px;
+  vertical-align: middle;
+  transition: background-color 0.12s;
+}
+table.list > tbody > tr > td:first-child, #content .wiki table td:first-child { border-inline-start: 0; }
+table.list > tbody > tr:last-child > td, #content .wiki table tr:last-child > td { border-block-end: 0; }
+table.list > thead > tr > th + th, table.list > tbody > tr > td + td { border-inline-start-color: var(--theme-line-soft); }
+/* Stripes by position, or by Redmine's odd/even classes where it sets them (grouped lists), so a group row does not shift them. */
+table.list tbody tr, table.list:not(.odd-even) tbody tr:nth-child(odd), table.list:not(.odd-even) tbody tr:nth-child(even),
+.box table.list:not(.odd-even) tbody tr:nth-child(even), table.list tr.odd, table.list tr.even, .odd, .even { background: transparent; }
+table.list > tbody > tr:nth-child(even) > td, #content .wiki table > tbody > tr:nth-child(even) > td { background: var(--theme-surface-sunken); }
+table.list.odd-even > tbody > tr.odd > td { background: transparent; }
+table.list.odd-even > tbody > tr.even > td { background: var(--theme-surface-sunken); }
+table.list > tbody > tr:hover > td, table.list.odd-even > tbody > tr:hover > td, #content .wiki table > tbody > tr:hover > td,
+table.list:not(.odd-even) tbody tr:nth-child(odd):hover, table.list:not(.odd-even) tbody tr:nth-child(even):hover { background: var(--theme-surface-hover); }
+table.list > tbody > tr:hover > td:first-child { box-shadow: inset 3px 0 0 var(--theme-accent-4); }
+/* Group rows in grouped lists: a plain band, no hover */
+table.list > tbody > tr.group > td, table.list > tbody > tr.group:hover > td {
+  padding-block: 12px 6px;
+  background: var(--theme-page);
+  border-inline-start: 0;
+  box-shadow: none;
+  font-weight: 700;
+}
+table.list tr.group span.name { color: var(--theme-ink); font-weight: 700; }
+table.list tr.group span.count:not(.badge), table.list tr.group span.totals { color: var(--theme-ink-muted); }
+table.list tr.group a.toggle-all { color: var(--theme-link); }
+/* Rows picked for the right-click menu stay clearly selected */
+table.list > tbody > tr.context-menu-selection > td { background: var(--theme-primary) !important; color: var(--theme-ink-on-primary) !important; }
+table.list > tbody > tr.context-menu-selection > td a, table.list > tbody > tr.context-menu-selection > td span { color: var(--theme-ink-on-primary) !important; }
+/* Numbers line up */
+table.list td.id, table.list td.done_ratio, table.list td.estimated_hours, table.list td.spent_hours, table.list td.total_spent_hours,
+table.list td.hours, table.list td.count, table.list td.total_estimated_hours { font-variant-numeric: tabular-nums; }
+table.list td.id a { font-weight: 650; }
+table.list td.subject a, table.list td.parent-subject a, table.list td.assigned_to a, table.list td.author a { color: var(--theme-link); }
+table.list td.subject a:hover, table.list td.parent-subject a:hover { color: var(--theme-link-hover); }
+table.list tr.issue.closed td.subject a, table.list tr.closed td.subject a { color: var(--theme-ink-muted); }
+table.list td.buttons a { color: var(--theme-link); }
+table.list tfoot td, table.list tr.total td { background: var(--theme-surface-sunken); font-weight: 700; }
+/* Child rows: a ↳ in the indent instead of Redmine's chevron background, which the stripes would paint over */
+tr.idnt :is(td.subject, td.name) { background-image: none; }
+tr.idnt :is(td.subject, td.name)::before {
+  content: "↳";
+  display: inline-block;
+  inline-size: 16px;
+  margin-inline-start: -18px;
+  text-align: center;
+  color: var(--theme-ink-muted);
+}
+/* Progress bars: slim and round */
+table.progress { border-radius: var(--theme-radius-pill); overflow: hidden; border-collapse: collapse; }
+table.progress td { border: 0 !important; }
+table.progress td.closed { background: var(--theme-success); }
+table.progress td.done { background: var(--theme-accent-3); }
+table.progress td.todo { background: var(--theme-line); }
+table.list td.done_ratio table.progress {
+  float: none;
+  display: inline-table;
+  vertical-align: middle;
+  inline-size: 80px;
+  block-size: 6px;
+  margin: 0;
+  font-size: 0;
+  line-height: 0;
+}
+table.list td.done_ratio table.progress td { block-size: 6px; padding: 0; background-clip: padding-box; }
+.autoscroll { overflow-x: auto; }
+
+/* ==========================================================================
+   5. The issue list: status chips with a dot, priority chips with a five-bar meter, a lighter filter box
+   A chip is the cell's content box (background-clip) with spacer pseudo-elements as its padding, so the markup is
+   Redmine's. Each row carries status-N and priority-N classes (N is the default id).
+   ========================================================================== */
+table.list.issues > tbody > tr.issue {
+  --chip: var(--theme-status-closed);
+  --chip-fill: color-mix(in srgb, var(--chip) var(--theme-chip-fill-share), transparent);
+  --chip-ink: color-mix(in srgb, var(--chip) var(--theme-chip-ink-share), var(--theme-chip-ink-mix));
+}
+table.list.issues > tbody > tr.issue.status-1 { --chip: var(--theme-status-new); }
+table.list.issues > tbody > tr.issue.status-2 { --chip: var(--theme-status-in-progress); }
+table.list.issues > tbody > tr.issue.status-3 { --chip: var(--theme-status-resolved); }
+table.list.issues > tbody > tr.issue.status-4 { --chip: var(--theme-status-feedback); }
+table.list.issues > tbody > tr.issue.status-5 { --chip: var(--theme-status-closed); }
+table.list.issues > tbody > tr.issue.status-6 { --chip: var(--theme-status-rejected); }
+table.list.issues td { white-space: nowrap; }
+/* Where the list is tight, a date and time stack on two lines instead of pushing the last columns out of view */
+table.list.issues td:is(.created_on, .updated_on, .closed_on) { white-space: normal; }
+table.list.issues > thead > tr > th, table.list.issues > tbody > tr > td { padding-inline: 10px; }
+table.list.issues td.subject, table.list.issues td.description, table.list.issues td.last_notes { white-space: normal; }
+table.list.issues td.subject { min-inline-size: 18em; overflow-wrap: anywhere; font-weight: 400; }
+table.list.issues th, table.list.issues td { text-align: start; }
+table.list.issues td.checkbox, table.list.issues th.checkbox, table.list.issues td.done_ratio { text-align: center; }
+table.list.issues > tbody > tr.issue > td.status,
+table.list.issues > tbody > tr.issue > td.priority {
+  inline-size: 1%;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 650;
+  font-style: normal;
+  text-transform: none;
+  --pill-color: var(--chip-fill);
+  color: var(--chip-ink);
+  background-image:
+    radial-gradient(ellipse 10px 50% at 10px 50%, var(--pill-color) 96%, transparent 100%),
+    radial-gradient(ellipse 10px 50% at 0 50%, var(--pill-color) 96%, transparent 100%),
+    linear-gradient(var(--pill-color), var(--pill-color)),
+    none;
+  background-position: left center, right center, 10px center, 0 0;
+  /* the chip is 1.7 times the text tall, so it grows with the type */
+  background-size: 10px 1.7em, 10px 1.7em, calc(100% - 20px) 1.7em, auto;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  /* the last layer is empty, so the row colour (stripe, hover) fills the whole cell, not only the chip */
+  background-clip: content-box, content-box, content-box, border-box;
+}
+table.list.issues > tbody > tr.issue > td.status::after,
+table.list.issues > tbody > tr.issue > td.priority::after { content: ""; display: inline-block; inline-size: 10px; }
+table.list.issues > tbody > tr.issue > td.status::before {
+  content: "";
+  display: inline-block;
+  inline-size: 7px;
+  block-size: 7px;
+  margin: 0 7px 1px 10px;
+  border-radius: var(--theme-radius-round);
+  background: var(--chip);
+}
+/* Priority ids: 1 Low, 2 Normal, 3 High, 4 Urgent, 5 Immediate */
+table.list.issues > tbody > tr.issue.priority-1 > td.priority,
+table.list.issues > tbody > tr.issue.priority-2 > td.priority { color: var(--theme-ink-muted); --pill-color: var(--theme-line-soft); }
+table.list.issues > tbody > tr.issue.priority-1 > td.priority { font-weight: 400; }
+/* (the chip colours are mixed here, on the cell: the row's own mix is from the status colour) */
+table.list.issues > tbody > tr.issue.priority-3 > td.priority {
+  color: color-mix(in srgb, var(--theme-warning) var(--theme-chip-ink-share), var(--theme-chip-ink-mix));
+  --pill-color: color-mix(in srgb, var(--theme-warning) var(--theme-chip-fill-share), transparent);
+}
+table.list.issues > tbody > tr.issue.priority-4 > td.priority {
+  color: color-mix(in srgb, var(--theme-danger) var(--theme-chip-ink-share), var(--theme-chip-ink-mix));
+  --pill-color: color-mix(in srgb, var(--theme-danger) var(--theme-chip-fill-share), transparent);
+}
+table.list.issues > tbody > tr.issue.priority-5 > td.priority { color: var(--theme-ink-on-colour); --pill-color: var(--theme-danger-strong); }
+/* The meter: one bar per level; lit bars take the chip's text colour, unlit bars a faint copy of it */
+table.list.issues > tbody > tr.issue[class*="priority-"] > td.priority::before,
+div.issue[class*="priority-"] .attributes .priority.attribute .value:not(:empty)::before {
+  content: "";
+  display: inline-block;
+  inline-size: 16.5px;
+  block-size: 11px;
+  margin: 0 6px 0 10px;
+  vertical-align: -1px;
+  --meter-off: color-mix(in srgb, currentColor 28%, transparent);
+  background:
+    linear-gradient(var(--meter-1, var(--meter-off)), var(--meter-1, var(--meter-off))) 0px 100% / 2.5px 3px no-repeat,
+    linear-gradient(var(--meter-2, var(--meter-off)), var(--meter-2, var(--meter-off))) 3.5px 100% / 2.5px 5px no-repeat,
+    linear-gradient(var(--meter-3, var(--meter-off)), var(--meter-3, var(--meter-off))) 7px 100% / 2.5px 7px no-repeat,
+    linear-gradient(var(--meter-4, var(--meter-off)), var(--meter-4, var(--meter-off))) 10.5px 100% / 2.5px 9px no-repeat,
+    linear-gradient(var(--meter-5, var(--meter-off)), var(--meter-5, var(--meter-off))) 14px 100% / 2.5px 11px no-repeat;
+}
+div.issue[class*="priority-"] .attributes .priority.attribute .value:not(:empty)::before { margin: 0; }
+:is(tr.issue, div.issue):is(.priority-1, .priority-2, .priority-3, .priority-4, .priority-5) { --meter-1: currentColor; }
+:is(tr.issue, div.issue):is(.priority-2, .priority-3, .priority-4, .priority-5) { --meter-2: currentColor; }
+:is(tr.issue, div.issue):is(.priority-3, .priority-4, .priority-5) { --meter-3: currentColor; }
+:is(tr.issue, div.issue):is(.priority-4, .priority-5) { --meter-4: currentColor; }
+:is(tr.issue, div.issue):is(.priority-5) { --meter-5: currentColor; }
+/* Status dots outside the issue list (My page blocks, subtasks, the home page) */
+tr.issue:not(table.list.issues tr) td.status::before {
+  content: "";
+  display: inline-block;
+  inline-size: 7px;
+  block-size: 7px;
+  margin-inline-end: 6px;
+  border-radius: var(--theme-radius-round);
+  background: var(--theme-status-closed);
+  vertical-align: 1px;
+}
+tr.issue.status-1:not(table.list.issues tr) td.status::before { background: var(--theme-status-new); }
+tr.issue.status-2:not(table.list.issues tr) td.status::before { background: var(--theme-status-in-progress); }
+tr.issue.status-3:not(table.list.issues tr) td.status::before { background: var(--theme-status-resolved); }
+tr.issue.status-4:not(table.list.issues tr) td.status::before { background: var(--theme-status-feedback); }
+tr.issue.status-6:not(table.list.issues tr) td.status::before { background: var(--theme-status-rejected); }
+/* Group rows that the script tagged with the status of their issues get the same dot */
+table.list tr.group[data-group-status] span.name::before {
+  content: "";
+  display: inline-block;
+  inline-size: 8px;
+  block-size: 8px;
+  margin-inline-end: 8px;
+  border-radius: var(--theme-radius-round);
+  background: var(--theme-status-closed);
+  vertical-align: 1px;
+}
+table.list tr.group[data-group-status="1"] span.name::before { background: var(--theme-status-new); }
+table.list tr.group[data-group-status="2"] span.name::before { background: var(--theme-status-in-progress); }
+table.list tr.group[data-group-status="3"] span.name::before { background: var(--theme-status-resolved); }
+table.list tr.group[data-group-status="4"] span.name::before { background: var(--theme-status-feedback); }
+table.list tr.group[data-group-status="6"] span.name::before { background: var(--theme-status-rejected); }
+
+/* An overdue due date: Redmine's own red (--oc-red-9) is too dark on a dark surface, so it takes the danger ink. */
+table.list tr.overdue:not(.context-menu-selection) td.due_date { color: var(--theme-danger-ink); }
+
+/* Filters and options: light panels; Apply and Clear as buttons */
+#query_form fieldset, #query_form_with_buttons fieldset {
+  margin-block-end: 10px;
+  padding: 8px 14px 10px;
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel);
+}
+#query_form fieldset.collapsed, #query_form_with_buttons fieldset.collapsed { padding-block: 4px; border-width: 1px; }
+#query_form fieldset legend, #query_form_with_buttons fieldset legend {
+  padding: 0 6px;
+  color: var(--theme-ink-muted);
+  font-size: 0.786rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+#query_form p.buttons, #query_form_with_buttons p.buttons { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+.query-totals { color: var(--theme-ink-muted); }
+.query-totals span { color: var(--theme-ink); }
+p.other-formats, p.other-formats a { color: var(--theme-ink-muted); }
+
+/* ==========================================================================
+   6. The issue page
+   ========================================================================== */
+/* Status colours for the page: the card edge, the heading badge and the status chip read --st, --st-fill and --st-ink. */
+#content {
+  --st: var(--theme-status-closed);
+  --st-fill: color-mix(in srgb, var(--st) var(--theme-chip-fill-share), var(--theme-surface));
+  --st-ink: color-mix(in srgb, var(--st) var(--theme-chip-ink-share), var(--theme-chip-ink-mix));
+}
+#content:has(div.issue.details.status-1) { --st: var(--theme-status-new); }
+#content:has(div.issue.details.status-2) { --st: var(--theme-status-in-progress); }
+#content:has(div.issue.details.status-3) { --st: var(--theme-status-resolved); }
+#content:has(div.issue.details.status-4) { --st: var(--theme-status-feedback); }
+#content:has(div.issue.details.status-5) { --st: var(--theme-status-closed); }
+#content:has(div.issue.details.status-6) { --st: var(--theme-status-rejected); }
+
+/* Badges: the open/closed/locked pill beside a title, counts */
+.badge { vertical-align: middle; margin-inline-start: 8px; padding: 2px 10px; border-radius: var(--theme-radius-pill); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; }
+.badge-status-open { color: var(--theme-accent-8); background: var(--theme-accent-0); border-color: var(--theme-accent-2); }
+.badge-status-closed, .badge-status-locked { color: var(--theme-ink-soft); background: var(--theme-line-soft); border-color: var(--theme-line); }
+#content > .badge[class*="badge-status-"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.857rem;
+  color: var(--st-ink);
+  background: var(--st-fill);
+  border-color: color-mix(in srgb, var(--st) 35%, transparent);
+}
+#content > .badge[class*="badge-status-"]::before { content: ""; inline-size: 7px; block-size: 7px; border-radius: var(--theme-radius-round); background: var(--st); }
+span.badge.badge-count { background-color: var(--theme-primary); color: var(--theme-ink-on-primary); }
+div.issue .badge-count { margin: 0; padding: 0 8px; border-radius: var(--theme-radius-pill); background: var(--theme-line-soft); color: var(--theme-ink); font-weight: 700; }
+span.badge-private, .badge-private { color: var(--theme-danger-ink); background: var(--theme-danger-soft); border-color: var(--theme-danger-soft-border); }
+
+/* The card: white, a coloured edge in the status colour, no yellow */
+div.issue {
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel);
+  color: var(--theme-ink);
+}
+div.issue.details { padding: 20px 24px; box-shadow: var(--theme-shadow-card); border-inline-start: 4px solid var(--st); }
+div.issue div.subject { display: flow-root; margin-inline-start: 8px; }
+div.issue div.subject div div { padding-inline-start: 0; }
+div.issue div.subject p { color: var(--theme-ink-muted); font-size: 0.8125rem; }
+div.issue div.subject h3 { max-inline-size: 85ch; margin-block-start: 2px; color: var(--theme-ink); font-size: 1.571rem; font-weight: 750; line-height: 1.25; }
+div.issue p.author { color: var(--theme-ink-muted); font-size: 0.8125rem; }
+div.issue p.author a { color: var(--theme-link); }
+div.issue hr, div.issue.details > hr { border: 0; border-block-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line); background: none; block-size: 0; margin: 14px 0; }
+/* Parent chain above the subject: each is a labelled strip, the nearest parent tinted */
+div.issue div.subject p:has(> a.issue) {
+  display: block;
+  margin: 0 0 6px;
+  padding: 6px 12px;
+  background: var(--theme-surface-sunken);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-small);
+  color: var(--theme-ink);
+  font-size: 1rem;
+}
+div.issue div.subject p:has(> a.issue)::before {
+  display: inline-block;
+  min-inline-size: 6.9em;
+  margin-inline-end: 10px;
+  content: "Ancestor";
+  color: var(--theme-ink-muted);
+  font-size: 0.786rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+div.issue div.subject p:has(+ div > h3):has(> a.issue) { background: var(--theme-accent-0); border-color: var(--theme-accent-2); }
+div.issue div.subject p:has(+ div > h3):has(> a.issue)::before { content: "Parent"; color: var(--theme-accent-8); }
+div.issue div.subject p:has(> a.issue) a { font-weight: 700; }
+
+/* Previous / next: one segmented control */
+#content .next-prev-links { display: inline-flex; align-items: center; margin: 0; padding: 0; border: 0; background: none; color: var(--theme-ink-muted); font-size: 0.929rem; }
+#content .next-prev-links span.pagination { padding: 0; }
+#content .next-prev-links ul.pages { display: inline-flex; margin: 0; padding: 0; }
+#content .next-prev-links ul.pages li { background: var(--theme-surface); border-color: var(--theme-line); font-size: 0.929rem; }
+#content .next-prev-links ul.pages li a { display: block; padding: 4px 10px; color: var(--theme-link); }
+#content .next-prev-links ul.pages li:hover { background: var(--theme-surface-hover); }
+#content .next-prev-links ul.pages li span { color: var(--theme-ink-muted); }
+
+/* Attributes: a sunken panel, quiet labels, a dash for an empty field, chips for status and priority */
+div.issue .attributes {
+  margin-block-start: 16px;
+  padding: 12px 18px;
+  background: var(--theme-surface-sunken);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius);
+}
+/* The label column is measured in em, so it widens with the type */
+div.issue .attributes .attribute { min-block-size: 0; padding-block: calc(5px * var(--theme-density)); padding-inline-start: 10em; }
+div.issue .attributes .attribute .label { inline-size: 9.3em; margin-inline-start: -10em; color: var(--theme-ink-muted); font-weight: 400; }
+div.issue .attributes .attribute .value { color: var(--theme-ink); font-size: 1rem; overflow-wrap: anywhere; }
+div.issue .attributes .attribute .value:empty::before { content: "—"; color: var(--theme-ink-muted); }
+div.issue .attributes .splitcontent + .splitcontent { margin-block-start: 6px; padding-block-start: 8px; border-block-start: 1px dashed var(--theme-line); }
+div.issue .attributes table.progress { vertical-align: middle; }
+div.issue .attributes .progress.attribute table.progress {
+  float: none;
+  display: inline-table;
+  vertical-align: middle;
+  inline-size: 120px;
+  block-size: 6px;
+  font-size: 0;
+  line-height: 0;
+}
+div.issue .attributes .progress.attribute table.progress td { block-size: 6px; padding: 0; }
+div.issue .attributes .progress.attribute .value p.percent { display: inline-block; margin: 0 0 0 10px; vertical-align: middle; font-weight: 700; }
+@media screen and (min-width: 900px) {
+  div.issue .attributes .splitcontentright { box-sizing: border-box; padding-inline-start: 18px; border-inline-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line); }
+}
+div.issue .attributes .status.attribute .value, div.issue .attributes .priority.attribute .value { overflow: visible; }
+div.issue .attributes .status.attribute .value:not(:empty),
+div.issue .attributes .priority.attribute .value:not(:empty) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 10px;
+  border-radius: var(--theme-radius-pill);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1.6;
+}
+div.issue .attributes .status.attribute .value:not(:empty) { color: var(--st-ink); background: var(--st-fill); }
+div.issue .attributes .status.attribute .value:not(:empty)::before { content: ""; inline-size: 7px; block-size: 7px; border-radius: var(--theme-radius-round); background: var(--st); }
+div.issue .attributes .priority.attribute .value:not(:empty) { color: var(--theme-ink-soft); background: var(--theme-line-soft); }
+div.issue.priority-1 .attributes .priority.attribute .value { color: var(--theme-ink-muted); background: transparent; border: 1px dashed var(--theme-line-strong); font-weight: 500; }
+div.issue.priority-3 .attributes .priority.attribute .value { --chip: var(--theme-warning); color: color-mix(in srgb, var(--chip) var(--theme-chip-ink-share), var(--theme-chip-ink-mix)); background: color-mix(in srgb, var(--chip) var(--theme-chip-fill-share), var(--theme-surface)); }
+div.issue.priority-4 .attributes .priority.attribute .value { --chip: var(--theme-danger); color: color-mix(in srgb, var(--chip) var(--theme-chip-ink-share), var(--theme-chip-ink-mix)); background: color-mix(in srgb, var(--chip) var(--theme-chip-fill-share), var(--theme-surface)); }
+div.issue.priority-5 .attributes .priority.attribute .value { color: var(--theme-ink-on-colour); background: var(--theme-danger-strong); }
+div.issue.overdue .due-date .value { color: var(--theme-danger-ink); font-weight: 650; }
+
+/* Section headings in the card (Description, Subtasks, Related issues), long text kept readable */
+div.issue .description > p > strong, div.issue #issue_tree > p > strong, div.issue #relations > p > strong {
+  color: var(--theme-ink-muted);
+  font-size: 0.786rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+div.issue .description .wiki, .journals .wiki { max-inline-size: 80ch; line-height: 1.6; }
+#content div.issue div.wiki h1 { font-size: 1.3em; }
+#content div.issue div.wiki h2 { font-size: 1.15em; }
+#content div.issue div.wiki h3 { font-size: 1.02em; }
+div.issue #issue_tree > p, div.issue #relations > p { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0 0 8px; }
+div.issue .issues-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--theme-ink-muted);
+  font-size: 0.929rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+div.issue .issues-stat a { color: var(--theme-link); font-variant-numeric: tabular-nums; }
+/* Subtasks and related issues: the table look inside a light frame */
+#issue_tree table.list, #relations table.list { inline-size: 100%; margin-block-start: 6px; border-radius: var(--theme-radius-small); box-shadow: none; }
+#issue_tree table.list > tbody > tr > td, #relations table.list > tbody > tr > td { padding: calc(7px * var(--theme-density)) 10px; }
+#issue_tree table.list > tbody > tr:hover > td.subject, #relations table.list > tbody > tr:hover > td.subject { box-shadow: inset 3px 0 0 var(--theme-accent-4); }
+#issue_tree td.assigned_to, #relations td.assigned_to { color: var(--theme-ink-muted); font-weight: 400; }
+#issue_tree tr.issue.closed > td.subject, #relations tr.issue.closed > td.subject { color: var(--theme-ink-muted); }
+#issue_tree td.buttons, #relations td.buttons { inline-size: 1%; white-space: nowrap; text-align: end; }
+#issue_tree td.buttons a, #relations td.buttons a { opacity: 0.55; transition: opacity 0.12s; }
+#issue_tree tr:hover td.buttons a, #relations tr:hover td.buttons a, #issue_tree td.buttons a:focus-visible, #relations td.buttons a:focus-visible { opacity: 1; }
+
+/* History: one card per note, a header strip with a round avatar, the note number at the right */
+#history > .tabs { margin-block-start: 24px; }
+.journals .journal, div.journal { margin-block-end: 12px; overflow: hidden; background: var(--theme-surface); border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-panel); }
+.journals h4.journal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(10px * var(--theme-density)) 16px;
+  background: var(--theme-surface-sunken);
+  border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  color: var(--theme-ink-muted);
+  font-size: 1rem;
+  font-weight: 400;
+}
+.journals h4.journal-header .gravatar, .journals h4.journal-header .avatar { flex: none; margin: 0; border-radius: var(--theme-radius-round); }
+.journals h4.journal-header .user { color: var(--theme-link); font-weight: 700; }
+.journals h4.journal-header .journal-link { order: 2; margin-inline-start: auto; color: var(--theme-ink-muted); font-size: 0.929rem; }
+.journals h4.journal-header .journal-actions { order: 3; gap: 2px; }
+.journals .journal-actions > a, .journals .journal-actions .drdn-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 26px;
+  block-size: 26px;
+  border-radius: var(--theme-radius-small);
+  color: var(--theme-ink-muted);
+}
+.journals .journal-actions > a:hover, .journals .journal-actions .drdn-trigger:hover { background: var(--theme-surface-hover); color: var(--theme-accent-8); }
+.journals .journal-actions .icon-svg { stroke: currentColor; }
+.journals .journal-content { margin-block-end: 0; padding: 12px 16px 14px; }
+.journals .journal .journal-content .wiki { margin-inline-start: 0; }
+.journals ul.details, .journals .journal-details { margin: 0 0 8px; padding: 0; list-style: none; color: var(--theme-ink-muted); font-size: 1rem; }
+.journals ul.details strong, .journals .journal-details strong { color: var(--theme-ink); font-weight: 650; }
+.journals ul.details a { color: var(--theme-link); }
+.journal.private-notes, div.journal.private-notes { border-inline-start: 3px solid var(--theme-danger-soft-border); }
+#history .tab-content, div#history { color: var(--theme-ink); }
+
+/* ==========================================================================
+   7. Buttons, action links, forms, focus
+   ========================================================================== */
+/* Buttons: the primary carries the primary background (a gradient in some themes); the others are a tint of the primary; delete is a tint of red. */
+input[type=submit], input[type=button], input[type=reset], button, a.button {
+  box-sizing: border-box;
+  border-radius: var(--theme-radius-small);
+  cursor: pointer;
+  font-weight: 650;
+}
+input[type=submit], input[type=button], input[type=reset], button:not(.tab-left):not(.tab-right):not(.icon-only):not(.ui-button):not(.ui-dialog-titlebar-close):not(.jstElements button), a.button {
+  border: 1px solid var(--theme-button-border);
+  background: var(--theme-button-background);
+  color: var(--theme-button-ink);
+}
+input[type=submit], input[type=button], input[type=reset] { block-size: 2.3em; padding: 0 16px; line-height: 1; }
+input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover,
+button:not(.tab-left):not(.tab-right):not(.icon-only):not(.ui-button):not(.ui-dialog-titlebar-close):not(.jstElements button):hover, a.button:hover {
+  border-color: var(--theme-primary);
+  background: var(--theme-primary);
+  color: var(--theme-ink-on-primary);
+  text-decoration: none;
+}
+input[type=submit]:not([name=continue]):not([name=preview]):not(.button-small), #login-form input#login-submit {
+  border: 1px solid var(--theme-primary);
+  background: var(--theme-primary-background);
+  background-color: var(--theme-primary);
+  color: var(--theme-ink-on-primary);
+  box-shadow: var(--theme-shadow-primary-button);
+}
+input[type=submit]:not([name=continue]):not([name=preview]):not(.button-small):hover, #login-form input#login-submit:hover {
+  border-color: var(--theme-primary-hover);
+  background: var(--theme-primary-background-hover);
+  background-color: var(--theme-primary-hover);
+}
+input[type=submit]:disabled, input[type=button]:disabled, button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* Page actions (Edit, Log time, Watch, Copy, ...) and in-card actions (Quote, Add) as tinted buttons; Edit and New are primary */
+#content > .contextual { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-block-start: 2px; }
+#content > .contextual > *:not(:first-child) { margin-inline-start: 0; }
+#content#content > .contextual > .drdn { margin: 0; padding: 0; border: 0; background: none; }
+#content > .contextual > a, #content > .contextual > .drdn > .drdn-trigger,
+div.issue .contextual > a, #sidebar .contextual > a, #content a.button,
+#query_form p.buttons a, #query_form_with_buttons p.buttons a, p.buttons > a.icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-sizing: border-box;
+  block-size: 2.3em;
+  padding: 0 12px;
+  background: var(--theme-button-background);
+  border: 1px solid var(--theme-button-border);
+  border-radius: var(--theme-radius-small);
+  color: var(--theme-button-ink);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+}
+div.issue .contextual > a, #sidebar .contextual > a { block-size: 2.1em; padding: 0 9px; font-size: 0.75rem; }
+#content > .contextual > .drdn > .drdn-trigger { inline-size: 2.3em; padding: 0; justify-content: center; }
+#content > .contextual > a:hover, #content > .contextual > .drdn > .drdn-trigger:hover,
+div.issue .contextual > a:hover, #sidebar .contextual > a:hover, #content a.button:hover,
+#query_form p.buttons a:hover, #query_form_with_buttons p.buttons a:hover, p.buttons > a.icon:hover {
+  background: var(--theme-primary);
+  border-color: var(--theme-primary);
+  color: var(--theme-ink-on-primary);
+  text-decoration: none;
+}
+#content > .contextual > a:is(.icon-edit, .icon-add, .new-issue),
+#query_form p.buttons a:first-child, #query_form_with_buttons p.buttons a:first-child {
+  background: var(--theme-primary-background);
+  background-color: var(--theme-primary);
+  border-color: var(--theme-primary);
+  color: var(--theme-ink-on-primary);
+}
+#content > .contextual > a:is(.icon-edit, .icon-add, .new-issue):hover,
+#query_form p.buttons a:first-child:hover, #query_form_with_buttons p.buttons a:first-child:hover {
+  background: var(--theme-primary-background-hover);
+  background-color: var(--theme-primary-hover);
+}
+#content > .contextual > a.icon-del, #content > .contextual > a.icon-del:visited {
+  background: var(--theme-danger-soft);
+  border-color: var(--theme-danger-soft-border);
+  color: var(--theme-danger-ink);
+}
+#content > .contextual > a.icon-del:hover { background: var(--theme-danger-strong); border-color: var(--theme-danger-strong); color: var(--theme-ink-on-colour); }
+#content .contextual a .icon-svg, #content .contextual .drdn-trigger .icon-svg, p.buttons a .icon-svg, a.button .icon-svg { stroke: currentColor; stroke-width: 2; inline-size: 16px; block-size: 16px; }
+div.issue .contextual { margin: 0; }
+#sidebar .contextual { margin: 0 12px 0 0; }
+#content .contextual { color: var(--theme-ink-muted); }
+/* The header has New issue; the page-level button stays for the phone layout */
+@media screen and (min-width: 900px) {
+  body:has(#header a.rubylode-new-issue-button) #content > .contextual > a.new-issue { display: none; }
+}
+
+/* Fields: white, a clear border, a teal focus ring with a lilac halo */
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=search], input[type=date],
+input[type=url], input[type=tel], input[type=time], input[type=datetime-local], input:not([type]), select, textarea {
+  border: 1px solid var(--theme-line-strong);
+  border-radius: var(--theme-radius-small);
+  background-color: var(--theme-surface);
+  color: var(--theme-ink);
+  padding-inline: 8px;
+}
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=search], input[type=url], input[type=tel], input:not([type]) { padding-block: 4px; }
+input::placeholder, textarea::placeholder { color: var(--theme-ink-muted); opacity: 1; }
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, input[type=search]:focus,
+input[type=date]:focus, input[type=url]:focus, input[type=tel]:focus, input[type=time]:focus, input:not([type]):focus, select:focus, textarea:focus {
+  border-color: var(--theme-focus);
+  outline: 0;
+  box-shadow: 0 0 0 2px var(--theme-focus), 0 0 0 5px var(--theme-focus-halo);
+}
+a:focus-visible, button:focus-visible, input[type=submit]:focus-visible, input[type=button]:focus-visible, input[type=checkbox]:focus-visible,
+input[type=radio]:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--theme-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--theme-focus-halo);
+}
+input[type=checkbox], input[type=radio] { accent-color: var(--theme-primary); }
+/* Single-choice selects say they are dropdowns: a chevron at the right */
+select:not([multiple]):not([size]) {
+  padding-inline-end: 30px;
+  background-image: var(--theme-select-arrow-image);
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  background-size: 16px 16px;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+select:not([multiple]):not([size]):hover { border-color: var(--theme-accent-3); }
+select[multiple], select[size] { padding: 4px; }
+/* Form boxes: white panels */
+div.box, fieldset.box, .tabular div.box, .box {
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel);
+  color: var(--theme-ink);
+}
+.box { padding: 12px 18px; }
+fieldset { border-color: var(--theme-line); border-radius: var(--theme-radius); }
+fieldset legend { color: var(--theme-ink-soft); }
+.tabular label, .tabular label.floating, .tabular label.block { color: var(--theme-ink-soft); }
+span.required, .required { color: var(--theme-danger-ink); }
+em.info, .info, p.info, .tabular .info { color: var(--theme-ink-muted); }
+/* The text editor: room after the tabs, a gap between the buttons, a soft frame */
+.jstTabs ul li a, .jstTabs a.tab-edit, .jstTabs a.tab-preview { color: var(--theme-ink-muted); }
+.jstTabs ul li a.selected { color: var(--theme-ink); border-color: var(--theme-line-strong); background: var(--theme-surface); }
+.jstTabs li.tab-elements { position: relative; inset-block-start: -3px; margin-inline-start: 18px; }
+.jstTabs .jstElements button { margin-inline-end: 4px; border: 1px solid transparent; border-radius: var(--theme-radius-small); background-color: transparent; }
+.jstTabs .jstElements button:hover { border-color: var(--theme-line); background-color: var(--theme-surface-hover); }
+.jstEditor textarea, textarea.wiki-edit { border-color: var(--theme-line-strong); }
+.wiki-preview { background: var(--theme-surface); border: 1px dashed var(--theme-line-strong); border-radius: var(--theme-radius-small); }
+.jstHandle { background-color: var(--theme-line-soft); }
+/* Attachments and the drop zone */
+.attachments_fields span, .filedrop { border-color: var(--theme-line-strong); }
+.filedrop { background: var(--theme-surface); border-radius: var(--theme-radius-small); }
+div.attachments { border-block-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line); }
+div.attachments a, div.attachments span.size, div.attachments span.author { color: var(--theme-ink-muted); }
+div.attachments a { color: var(--theme-link); }
+
+/* ==========================================================================
+   8. Messages, tabs, context menu, pagination, tags, avatars
+   ========================================================================== */
+#errorExplanation, div.flash, .nodata, .warning, .conflict { border-radius: var(--theme-radius); border-width: 1px; font-size: 1rem; }
+div.flash.notice { background-color: var(--theme-flash-success-background); border-color: var(--theme-flash-success-border); color: var(--theme-flash-success-ink); }
+div.flash.notice svg.icon-svg { stroke: var(--theme-flash-success-ink); }
+div.flash.error, #errorExplanation { background-color: var(--theme-danger-soft); border-color: var(--theme-danger-soft-border); color: var(--theme-danger-ink); }
+div.flash.error svg.icon-svg, #errorExplanation svg.icon-svg { stroke: var(--theme-danger-ink); }
+div.flash.warning, .conflict { background-color: var(--theme-flash-warning-background); border-color: var(--theme-flash-warning-border); color: var(--theme-flash-warning-ink); }
+div.flash.warning svg.icon-svg, .conflict svg.icon-svg { stroke: var(--theme-flash-warning-ink); }
+.nodata, .warning { background-color: var(--theme-surface); border-color: var(--theme-line); border-style: dashed; color: var(--theme-ink-muted); }
+#errorExplanation ul li { color: var(--theme-danger-ink); }
+
+/* Tabs inside the page (settings, history, administration): an underline in the primary, no boxes */
+#content .tabs ul { border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line); }
+#content .tabs ul li a {
+  padding: 7px 12px;
+  border: 0;
+  border-block-end: 2px solid transparent;
+  border-radius: var(--theme-radius-small) var(--theme-radius-small) 0 0;
+  background: transparent;
+  color: var(--theme-ink-muted);
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+#content .tabs ul li a:hover { background: var(--theme-surface-hover); color: var(--theme-ink); }
+#content .tabs ul li a.selected, #content .tabs ul li a.selected:hover {
+  border: 0;
+  border-block-end: 2px solid var(--theme-accent-4);
+  background: transparent;
+  box-shadow: none;
+  color: var(--theme-accent-8);
+}
+#content .tabs { block-size: 2.9em; }
+div.tabs-buttons button { color: var(--theme-ink-muted); background: var(--theme-page); }
+
+/* The right-click menu and the other small dropdowns */
+#context-menu ul, #context-menu li > ul, .drdn-content {
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius);
+  box-shadow: var(--theme-shadow-popup);
+}
+#context-menu ul { padding: 4px; }
+#context-menu li { border-radius: var(--theme-radius-small); }
+#context-menu a, #context-menu li > a, #context-menu li > span { color: var(--theme-ink); border-radius: var(--theme-radius-small); }
+#context-menu li > a:hover, #context-menu li:hover > a, #context-menu li.folder:hover > a, #context-menu a.submenu:hover { background-color: var(--theme-surface-hover); color: var(--theme-accent-8); }
+#context-menu a.disabled, #context-menu a.disabled:hover { color: var(--theme-ink-muted); background: none; }
+#context-menu svg.icon-svg { stroke: currentColor; }
+.drdn-items > a, .drdn-items > span { color: var(--theme-ink); }
+.drdn-items > a:hover, .drdn-items > a.selected { background-color: var(--theme-surface-hover); color: var(--theme-accent-8); }
+.drdn-content .quick-search input[type=text] { border-radius: var(--theme-radius-small); }
+.drdn-items .bullet, .drdn-items span.bullet { color: var(--theme-ink-muted); }
+
+/* Pagination: rounded steps, the current one in the primary */
+.pagination ul.pages li { border-color: var(--theme-line); background: var(--theme-surface); color: var(--theme-ink); }
+.pagination ul.pages li a { color: var(--theme-link); }
+.pagination ul.pages li:first-child { border-start-start-radius: var(--theme-radius-small); border-end-start-radius: var(--theme-radius-small); }
+.pagination ul.pages li:last-child { border-start-end-radius: var(--theme-radius-small); border-end-end-radius: var(--theme-radius-small); }
+.pagination ul.pages li.current { background-color: var(--theme-primary); border-color: var(--theme-primary); }
+.pagination ul.pages li.current span, .pagination ul.pages li.current a { color: var(--theme-ink-on-primary); }
+.pagination ul.pages li.page:hover { background-color: var(--theme-surface-hover); }
+.pagination .per-page span.selected { background-color: var(--theme-accent-0); color: var(--theme-accent-8); border-radius: var(--theme-radius-inline); }
+.pagination, .pagination .items, .pagination .per-page { color: var(--theme-ink-muted); }
+
+/* Tags of tag plugins that paint each tag with an inline background: one calm chip instead (the inline style needs !important) */
+.tag-label-color { display: inline-block; padding: 1px 10px; background-color: var(--theme-button-background) !important; border: 1px solid var(--theme-button-border); border-radius: var(--theme-radius-pill); line-height: 1.5; }
+.tag-label-color a, .tag-label-color a:visited, .tag-label-color a:hover { color: var(--theme-button-ink); font-size: 0.929rem; font-weight: 700; text-decoration: none; }
+
+/* Avatars: Redmine's red, orange and pink do not reach 4.5 to 1 with white text, so those are darker */
+.avatar-color-0 { background-color: var(--theme-avatar-color-0); }
+.avatar-color-1 { background-color: var(--theme-avatar-color-1); }
+.avatar-color-7 { background-color: var(--theme-avatar-color-7); }
+a.issue.tracker-2, a.issue.tracker-2:visited { color: var(--theme-link); }
+
+/* Tooltips Redmine draws itself (calendar and Gantt issue cards) */
+div.tooltip span.tip, span.tip { background: var(--theme-surface); border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-small); box-shadow: var(--theme-shadow-popup); color: var(--theme-ink); }
+.ui-widget-content { background: var(--theme-surface); color: var(--theme-ink); border-color: var(--theme-line); }
+.ui-dialog .ui-dialog-titlebar { background: var(--theme-surface-sunken); border-color: var(--theme-line); color: var(--theme-ink); }
+.ui-datepicker .ui-state-default { background: var(--theme-surface); border-color: var(--theme-line); color: var(--theme-ink); }
+.ui-datepicker .ui-state-active, .ui-datepicker .ui-state-hover { background: var(--theme-surface-hover); color: var(--theme-accent-8); }
+
+/* ==========================================================================
+   9. Activity: each day a white panel; time in a column, a round icon per event, the text cut to two lines
+   ========================================================================== */
+div#activity h3 {
+  margin: 0;
+  padding: 12px 22px;
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel) var(--theme-radius-panel) 0 0;
+  color: var(--theme-ink-muted);
+  font-size: 0.786rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+div#activity dl {
+  margin: 0 0 16px;
+  margin-inline-start: 0;
+  padding: 0;
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-block-start: 0;
+  border-radius: 0 0 var(--theme-radius-panel) var(--theme-radius-panel);
+}
+div#activity dt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 14px 22px 0;
+  background-image: none;
+  border: 0;
+  border-block-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  font-weight: 400;
+}
+div#activity dt:first-of-type { border-block-start: 0; }
+div#activity dt .time { order: -1; flex: 0 0 4.6em; margin-inline-end: 0; color: var(--theme-ink-muted); font-size: 1rem; font-variant-numeric: tabular-nums; }
+div#activity dt .avatar, div#activity dt .gravatar { display: none; }
+/* Redmine 7 puts an icon in front of each event; the round marker below replaces it */
+div#activity dt > svg.icon-svg, div#activity dt > .icon-svg { display: none; }
+div#activity dt::before {
+  content: "•";
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: var(--theme-radius-round);
+  background: var(--theme-line-soft);
+  color: var(--theme-ink-muted);
+  font-size: 1rem;
+  font-weight: 700;
+}
+div#activity dt.issue-closed::before { content: "✓"; background: var(--theme-success-soft); color: var(--theme-success-ink); }
+div#activity dt.issue::before { content: "+"; background: var(--theme-accent-0); color: var(--theme-accent-8); }
+div#activity dt:is(.issue-edit, .issue-note)::before { content: "✎"; background: var(--theme-secondary-pale); color: var(--theme-activity-edit-ink); }
+div#activity dt:is(.wiki-page, .wiki-page-edit)::before { content: "¶"; background: var(--theme-tertiary-pale); color: var(--theme-activity-wiki-ink); }
+div#activity dt.changeset::before { content: "‹›"; }
+div#activity dt.time-entry::before { content: "◷"; }
+div#activity dt .project { padding: 0 8px; border-radius: var(--theme-radius-small); background: var(--theme-line-soft); color: var(--theme-ink); font-size: 0.857rem; font-weight: 700; }
+div#activity span.project::after { content: none; }
+div#activity dt a { font-weight: 700; }
+div#activity dd { margin: 0; padding: 4px 22px 14px calc(4.6rem + 76px); border: 0; font-size: 1rem; }
+div#activity dd .description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; color: var(--theme-ink); font-style: normal; }
+div#activity dd .author { display: block; margin-block-start: 4px; color: var(--theme-ink-muted); font-size: 0.929rem; }
+div#activity dd .author a { color: var(--theme-ink-muted); }
+@media screen and (max-width: 899px) {
+  div#activity dt { flex-wrap: wrap; padding-inline: 14px; }
+  div#activity dt .time { flex-basis: 48px; }
+  div#activity dd { padding-inline: 14px; }
+}
+
+/* ==========================================================================
+   10. Roadmap and versions: each version a white panel, a 10px bar, related issues in the table look
+   ========================================================================== */
+#roadmap article.version-article, div.version-overview:not(#roadmap div) {
+  margin-block-end: 16px;
+  padding: 20px 22px;
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel);
+}
+#roadmap article.version-article > header { display: flex; align-items: baseline; gap: 12px; margin: 0 0 12px; }
+#roadmap article.version-article > header h3 { margin: 0; padding: 0; background-image: none; font-size: 1.429rem; font-weight: 750; }
+.version-overview table.progress { float: none; display: table; inline-size: 100%; block-size: 10px; margin: 0 0 8px; font-size: 0; line-height: 0; }
+.version-overview table.progress td { block-size: 10px; padding: 0; }
+.version-overview p.progress-info { margin: 0 0 12px; color: var(--theme-ink-muted); font-size: 1rem; }
+.version-overview p.progress-info a { color: var(--theme-link); }
+#roadmap table.related-issues, table.related-issues { inline-size: 100%; border: 0; border-block-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: 0; box-shadow: none; }
+table.related-issues caption {
+  padding: 10px 0 8px;
+  text-align: start;
+  color: var(--theme-ink-muted);
+  font-size: 0.786rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+table.related-issues tr.closed > td, table.related-issues tr.closed > td a { color: var(--theme-ink-muted); }
+p.description, .version .description { color: var(--theme-ink-soft); }
+span.badge-status-locked, .version.locked { color: var(--theme-ink-muted); }
+
+/* ==========================================================================
+   11. Overview, projects list and My page (Redmine's own; the Rubylode Projects and Home plugins have their own views)
+   ========================================================================== */
+.controller-projects.action-show div.box, .controller-projects.action-show div.splitcontent > div > div.box {
+  margin-block-end: 16px;
+  padding: 18px 20px;
+  box-shadow: var(--theme-shadow-card);
+}
+.controller-projects.action-show div.box h3 { margin: 0 0 12px; padding: 0; background: none; font-size: 1.143rem; font-weight: 750; }
+.controller-projects.action-show div.box ul { margin: 0; padding: 0; list-style: none; }
+.controller-projects.action-show div.issues.box li { padding: 6px 0; border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line); }
+.controller-projects.action-show div.issues.box li:last-child { border-block-end: 0; }
+.controller-projects.action-show div.members.box .label {
+  display: inline-block;
+  min-inline-size: 90px;
+  color: var(--theme-ink-muted);
+  font-size: 0.786rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.controller-projects.action-show div.subprojects.box ul { display: flex; flex-wrap: wrap; gap: 8px; }
+.controller-projects.action-show div.subprojects.box li { margin: 0; padding: 0; }
+.controller-projects.action-show div.subprojects.box li a {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--theme-accent-0);
+  border: 1px solid var(--theme-accent-2);
+  border-radius: var(--theme-radius-small);
+  font-weight: 700;
+}
+.controller-projects.action-show div.subprojects.box li a:hover { background: var(--theme-button-background); text-decoration: none; }
+.controller-projects.action-show table.list.issue-report { box-shadow: none; }
+
+/* Projects list (board view): one card per top-level project in a grid, subprojects as a hairline list */
+#projects-index ul.projects.root {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#projects-index ul.projects.root > li.root {
+  float: none;
+  inline-size: auto;
+  margin: 0;
+  padding: 20px 22px;
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel);
+  box-shadow: var(--theme-shadow-card);
+}
+#projects-index li.root > div.root a.project.root { color: var(--theme-accent-8); font-size: 1.286rem; font-weight: 750; letter-spacing: -0.01em; }
+#projects-index div.wiki.description { margin: 8px 0 0; color: var(--theme-ink); font-size: 1rem; line-height: 1.55; }
+#projects-index li.root > ul.projects { margin: 16px 0 0; padding: 0; border: 0; border-block-start: var(--theme-border-width) var(--theme-border-style) var(--theme-line); list-style: none; }
+#projects-index li.root > ul.projects > li { margin: 0; padding: 12px 0; border-block-end: 1px solid var(--theme-line-soft); }
+#projects-index li.root > ul.projects > li:last-child { padding-block-end: 0; border-block-end: 0; }
+#projects-index li.root > ul.projects a.project { font-size: 1.071rem; font-weight: 700; }
+#projects-index li.root > ul.projects div.wiki.description { margin-block-start: 4px; color: var(--theme-ink-muted); font-size: 0.929rem; }
+#projects-index ul.projects li.child, #projects-index ul.projects ul { background: none; border-inline-start: 0; }
+#projects-index a.icon-fav, span.icon-user { color: var(--theme-link); }
+
+/* My page: each block one card with a title strip; its table has no frame of its own */
+#my-page .mypage-box, .mypage-box {
+  padding: 0;
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel);
+  box-shadow: var(--theme-shadow-card);
+  overflow: hidden;
+}
+#my-page .mypage-box > h3, .mypage-box > h3 { margin: 0; padding: 12px 16px; border-block-end: var(--theme-border-width) var(--theme-border-style) var(--theme-line); font-size: 1.071rem; font-weight: 700; }
+#my-page .mypage-box .autoscroll { padding: 0; }
+#my-page .mypage-box table.list { border: 0; border-radius: 0; box-shadow: none; }
+#my-page .mypage-box p.nodata, #my-page .mypage-box > p { margin: 12px 16px; }
+#my-page .mypage-box .contextual { margin: 10px 12px 0 0; }
+#block-select { color: var(--theme-ink); }
+
+/* ==========================================================================
+   12. Home (the welcome page): the welcome text as a lead panel, the news and projects as cards
+   ========================================================================== */
+.controller-welcome #content > h2 { font-size: 1.75rem; }
+.controller-welcome #content .wiki { padding: 18px 22px; background: var(--theme-surface); border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-panel); box-shadow: var(--theme-shadow-card); }
+.controller-welcome #content .wiki > p:first-child { margin-block-start: 0; }
+.controller-welcome #content .wiki > :last-child { margin-block-end: 0; }
+.controller-welcome .splitcontentleft, .controller-welcome .splitcontentright { box-sizing: border-box; }
+.controller-welcome .splitcontentright .news, .controller-welcome .splitcontentright .projects,
+.controller-welcome #content .box { padding: 16px 20px; background: var(--theme-surface); border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-panel); box-shadow: var(--theme-shadow-card); }
+.controller-welcome .splitcontentright h3 { margin-block-start: 0; }
+div.news, .news-article { margin-block-end: 12px; }
+div.news h3, .news-article h3 { font-size: 1rem; }
+p.news-summary, .news p.summary, div.news .author, .news-article p.author, p.author { color: var(--theme-ink-muted); }
+
+/* ==========================================================================
+   13. Sign in: a card on the page, the theme's mark above it
+   ========================================================================== */
+#login-form {
+  background: var(--theme-surface);
+  border: var(--theme-border-width) var(--theme-border-style) var(--theme-line);
+  border-radius: var(--theme-radius-panel);
+  padding: 28px;
+  box-shadow: var(--theme-shadow-popup);
+}
+#login-form::before {
+  content: "";
+  display: block;
+  inline-size: 40px;
+  block-size: 40px;
+  margin: 0 auto 14px;
+  background: var(--theme-mark-image) no-repeat center / 40px 40px;
+}
+#login-form label { color: var(--theme-ink-soft); }
+#login-form a.lost_password, #login-form a { color: var(--theme-link); }
+#login-form input#login-submit { block-size: 38px; font-size: 1.071rem; }
+.controller-account #content > h2, .controller-account div#login-form h3 { text-align: center; }
+
+/* ==========================================================================
+   14. Wiki, news, documents, files, time, the repository, search
+   ========================================================================== */
+.controller-wiki #content > .contextual + h1, div.wiki-page .contextual { color: var(--theme-ink-muted); }
+#sidebar .wiki-page-index li, ul.pages-hierarchy li { line-height: 1.6; }
+ul.pages-hierarchy { padding-inline-start: 1.2em; }
+#content form.edit_content .box, #wiki_form .box { padding: 12px 16px; }
+p.wiki-update-info, .wiki-update-info, div.wiki-page .wiki-update-info { color: var(--theme-ink-muted); }
+table.list.entries td.filename a, table.list.changesets td.id a, table.list.files td.filename a { color: var(--theme-link); }
+table.list.entries td.size, table.list.entries td.age, table.list.entries td.author, table.filecontent th.line-num, table.filecontent th.line-num a { color: var(--theme-ink-muted); }
+table.filecontent { border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-small); }
+table.filecontent th.filename { background: var(--theme-surface-sunken); border-color: var(--theme-line); color: var(--theme-ink); }
+table.filecontent td.line-code pre, table.filecontent td.line-code { background: var(--theme-code-background); color: var(--theme-code-ink); }
+.diff_out { background: var(--theme-diff-removed); }
+.diff_in { background: var(--theme-diff-added); }
+table.list.time-entries td.hours, table.list.time-entries th.hours { text-align: end; }
+#search-results dt { padding-block-start: 10px; }
+#search-results dd { color: var(--theme-ink-soft); }
+#search-results span.highlight, .highlight { background-color: var(--theme-tertiary-pale); color: var(--theme-search-highlight-ink); border-radius: var(--theme-radius-highlight); }
+#search-results-counts a { color: var(--theme-link); }
+.document-group h3, .controller-documents h3 { color: var(--theme-ink); }
+table.list.files tr.version > td { background: var(--theme-page); font-weight: 700; }
+
+/* ==========================================================================
+   15. Calendar and Gantt
+   ========================================================================== */
+table.cal { border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius); border-collapse: separate; border-spacing: 0; overflow: hidden; background: var(--theme-surface); }
+table.cal thead th { background: var(--theme-surface-sunken); border-color: var(--theme-line); color: var(--theme-ink-soft); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+table.cal td { border-color: var(--theme-line-soft); }
+table.cal td.odd p.day-num { color: var(--theme-ink-muted); }
+table.cal td.today { background: var(--theme-accent-0); }
+/* Today: Redmine draws the circle with a pseudo-element; the theme paints the number itself, so the colours are its own */
+.cal .calbody.today .day-value { border-radius: var(--theme-radius-round); background: var(--theme-primary); color: var(--theme-ink-on-primary); }
+.cal .calbody.today .day-value::before { content: none; }
+table.cal td.nwday:not(.odd) { background-color: var(--theme-surface-sunken); }
+table.cal td.week-number { background: var(--theme-page); color: var(--theme-ink-muted); }
+table.cal div.issue, table.cal .calendar-issue { border-radius: var(--theme-radius-small); border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-inline-start: 3px solid var(--theme-accent-4); background: var(--theme-surface); color: var(--theme-ink); }
+.gantt_hdr { background-color: var(--theme-surface-sunken); border-color: var(--theme-line); color: var(--theme-ink-soft); }
+.gantt_subjects_container, .gantt_selected_column_container, #gantt_area { border-color: var(--theme-line); }
+.gantt_subjects div.issue-subject:hover, .gantt_subjects div.project-name:hover, .gantt_subjects div.version-name:hover { background-color: var(--theme-surface-hover); }
+/* gantt.css is linked by the Gantt page itself, after the theme, so these carry "body" to win */
+body .task_todo { background: var(--theme-line-strong); border-color: var(--theme-line-strong); }
+body .task_done { background: var(--theme-accent-4); border-color: var(--theme-accent-4); }
+body .task_late { background: var(--theme-gantt-late); border-color: var(--theme-gantt-late); }
+body .task_todo.parent, body .task_done.parent, body .task_late.parent { background: var(--theme-ink-soft); }
+body .version.task_done, body .project.task_done { background: var(--theme-accent-6); }
+body .gantt_subjects .issue-subject a, body .gantt_subjects .version-name a, body .gantt_subjects .project-name a { color: var(--theme-link); }
+body .task.label { color: var(--theme-ink-soft); }
+body .task.label.late, body .task.label.behind-start-date { color: var(--theme-gantt-late-label); }
+body .task.label.overdue { color: var(--theme-danger-ink); }
+
+/* ==========================================================================
+   16. Administration and settings
+   ========================================================================== */
+/* The admin menu's colours are for the page (#main). On phones Redmine copies the sidebar, and the admin menu with it, into the
+   slide-out menu, which has its own colours; :where() keeps the specificity of a plain "#admin-menu a". */
+:where(#main) #admin-menu a, :where(#main) #admin-menu a:visited { color: var(--theme-link); }
+:where(#main) #admin-menu a.selected, :where(#main) #admin-menu a.selected:hover { background: var(--theme-surface-hover); color: var(--theme-accent-8); font-weight: 650; border-radius: var(--theme-radius-small); }
+#admin-menu a .icon-svg, #admin-menu a svg.icon-svg { stroke: currentColor; }
+.controller-admin.action-index #admin-menu ul li a, #admin-index #admin-menu ul li a { padding: 6px 8px; border-radius: var(--theme-radius-small); }
+.controller-admin.action-index #admin-menu ul li a:hover { background: var(--theme-surface-hover); text-decoration: none; }
+.tabular.settings p, .tabular p { color: var(--theme-ink); }
+table.list.roles td, table.list.trackers td, table.permissions td { color: var(--theme-ink); }
+table.permissions tr.group td, .permissions .group { background: var(--theme-page); }
+table.list tr.locked td, table.list tr.archived td, table.list tr.closed td { color: var(--theme-ink-muted); }
+table.list tr.locked a, table.list tr.archived a { color: var(--theme-ink-muted); }
+table.list td.name span, table.list td.tick { color: var(--theme-ink); }
+
+/* ==========================================================================
+   17. Touches that need theme.js (the page is the same without them)
+   ========================================================================== */
+@media screen and (min-width: 900px) {
+  body.page-scrolled nav#top-menu.top-menu { box-shadow: var(--theme-shadow-header-scrolled); }
+}
