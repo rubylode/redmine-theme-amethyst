@@ -1,8 +1,8 @@
 # Rubylode Amethyst for Redmine
 
-Violet accents and a light sidebar, with the issue list as a task list: status dots, priority flags, status groups and view tabs.
+A theme for Redmine 7 and up: violet accents, a light sidebar, and an issue list laid out as a task list with status dots, priority flags, status groups and view tabs.
 
-A theme for Redmine 7 and up. It is CSS plus one small script (`javascripts/theme.js`, about 70 lines), with no plugin and no change to Redmine itself. The script only reads the page: it colours status group headers, adds initials next to assignees and builds a row of view tabs. Without it the theme still works, with plainer lists. Light first, with a dark set that follows your system setting (see [Dark mode](#dark-mode)).
+It is CSS plus one small script (`javascripts/theme.js`, about 70 lines), with no plugin and no change to Redmine itself. The script only reads the page: it colours status group headers, adds initials next to assignees and builds a row of view tabs. Without it the theme still works, with plainer lists. The dark set follows your system setting (see [Dark mode](#dark-mode)).
 
 ![A walk through Rubylode Amethyst: the issue list, an issue, the wiki, the to-do page and the new-issue form](docs/demo/walkthrough-light.gif)
 
@@ -29,7 +29,6 @@ Dark mode:
 - [Development](#development)
 - [Checks and releases](#checks-and-releases)
 - [License](#license)
-- [Disclaimer](#disclaimer)
 
 ## Install
 
@@ -42,12 +41,12 @@ To go back, choose another theme on the same page. Nothing is written to the dat
 ## What is covered
 
 The header and menus, the sidebar, the issue list, the issue page with its history, the new and edit forms, buttons, flash
-messages, tables, tabs, the context menu and the login page, in light and dark. Other pages (Gantt, calendar, wiki, administration)
-take their colours from the same variables and are fixed up as problems turn up.
+messages, tables, tabs, the context menu and the login page, in light and dark. Gantt and the calendar take their colours from the
+same variables; the page check reports their contrast but does not fail on it.
 
 ## Dark mode
 
-Dark mode follows your system setting and is part of the design, not an afterthought. If you would rather the theme stayed light, delete the `@media (prefers-color-scheme: dark)` block at the end of `amethyst/stylesheets/application.css`; every dark rule is in that one block.
+Dark mode follows your system setting. To keep the theme light, delete the `@media (prefers-color-scheme: dark)` block at the end of `amethyst/stylesheets/application.css`; every dark rule is in that one block.
 
 ## Compatibility
 
@@ -83,8 +82,4 @@ A tag such as `v1.0.0` runs the same check, builds `<name>-<version>.zip` holdin
 
 GPL version 2 or later, the same as Redmine. See `LICENSE`. Copyright (C) 2026  Nick Gorbikoff.
 
-## Disclaimer
-
-Use at your own risk. This software is provided as is, without warranty of any kind, express or implied. The author is not
-liable for any damage, data loss or downtime that comes from using it. Try it on a copy of your tracker before you use it on the
-real one.
+No warranty, as the GPL says. Try it on a copy of your tracker before the real one.
