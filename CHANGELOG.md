@@ -2,6 +2,12 @@
 
 All notable changes to this theme. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.1] - 2026-11-02
+
+### Added
+
+- The theme defines the chart colour tokens the Stats plugin reads.
+
 ## [2.0.0] - 2026-11-02
 
 ### Changed

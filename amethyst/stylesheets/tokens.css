@@ -202,6 +202,21 @@
   --theme-group-high: #b45309;
   --theme-group-normal: #2f5fd0;
   --theme-group-low: #5a6b85;
+
+  /* Chart colours: the Rubylode Stats plugin reads these. Material 600 to 800 hues, each at least 3:1 against the page and the panels. */
+  --theme-chart-1: #1E88E5;
+  --theme-chart-2: #43A047;
+  --theme-chart-3: #E06500;
+  --theme-chart-4: #8E24AA;
+  --theme-chart-5: #0097A7;
+  --theme-chart-6: #E53935;
+  --theme-chart-7: #5E35B1;
+  --theme-chart-8: #5E9A30;
+  --theme-chart-9: #F4511E;
+  --theme-chart-10: #546E7A;
+  --theme-chart-open: #1E88E5;
+  --theme-chart-closed: #43A047;
+  --theme-chart-neutral: #78909C;
 }
 
 /* Redmine's palette, pointed at the tokens. Redmine 7 colours itself with the Open Color variables (--oc-*) and a few
