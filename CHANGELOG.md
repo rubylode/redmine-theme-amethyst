@@ -2,6 +2,12 @@
 
 All notable changes to this theme. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.3] - 2026-11-03
+
+### Changed
+
+- The theme now has a Rubylode thumbnail, shown at the top of the README. The theme itself is unchanged.
+
 ## [2.0.2] - 2026-11-03
 
 ### Changed

@@ -1,5 +1,7 @@
 # Rubylode Amethyst for Redmine
 
+<p><img src="docs/thumbnail.png" alt="Rubylode Amethyst theme" width="160"></p>
+
 A light theme for Redmine 7 and up: a white page with cool violet-tinted greys and one violet, a light project sidebar on wide screens, and an issue list laid out as a task list with status circles, priority flags and status group pills.
 
 It is plain CSS plus one small script (`javascripts/theme.js`), with no plugin, no build step and no change to Redmine itself.
