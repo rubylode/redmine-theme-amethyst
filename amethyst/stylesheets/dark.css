@@ -134,19 +134,19 @@
     --theme-neutral-9-rgb: 243, 242, 249;
 
     /* Chart colours: the Rubylode Stats plugin reads these. Material 300 to 400 hues, each at least 3:1 against the page and the panels. */
-    --theme-chart-1: #64B5F6;
-    --theme-chart-2: #81C784;
-    --theme-chart-3: #FFB74D;
-    --theme-chart-4: #BA68C8;
-    --theme-chart-5: #4DD0E1;
-    --theme-chart-6: #E57373;
-    --theme-chart-7: #9575CD;
-    --theme-chart-8: #AED581;
-    --theme-chart-9: #FF8A65;
-    --theme-chart-10: #90A4AE;
-    --theme-chart-open: #64B5F6;
-    --theme-chart-closed: #81C784;
-    --theme-chart-neutral: #78909C;
+    --theme-chart-1: #6FA3D0;
+    --theme-chart-2: #EE9A63;
+    --theme-chart-3: #7CC09E;
+    --theme-chart-4: #E08A82;
+    --theme-chart-5: #A98CC9;
+    --theme-chart-6: #E3BE63;
+    --theme-chart-7: #86C4C9;
+    --theme-chart-8: #BBA08F;
+    --theme-chart-9: #9FB0C2;
+    --theme-chart-10: #B4BAC0;
+    --theme-chart-open: #6FA3D0;
+    --theme-chart-closed: #7CC09E;
+    --theme-chart-neutral: #8A9199;
   }
 
   /* White text on colour: Redmine writes it with --oc-white, which is a dark surface in the dark scheme. */

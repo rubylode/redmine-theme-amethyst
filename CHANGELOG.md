@@ -2,6 +2,12 @@
 
 All notable changes to this theme. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.0.2] - 2026-11-03
+
+### Changed
+
+- The chart colours are now a muted editorial set.
+
 ## [2.0.1] - 2026-11-02
 
 ### Added
