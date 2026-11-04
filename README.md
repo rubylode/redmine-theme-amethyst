@@ -2,6 +2,12 @@
 
 <p><img src="docs/thumbnail.png" alt="Rubylode Amethyst theme" width="160"></p>
 
+[![check](https://img.shields.io/github/actions/workflow/status/rubylode/redmine-theme-amethyst/check.yml?branch=main&label=check)](https://github.com/rubylode/redmine-theme-amethyst/actions/workflows/check.yml)
+[![security](https://img.shields.io/github/actions/workflow/status/rubylode/redmine-theme-amethyst/security.yml?branch=main&label=security)](https://github.com/rubylode/redmine-theme-amethyst/actions/workflows/security.yml)
+[![version](https://img.shields.io/github/v/tag/rubylode/redmine-theme-amethyst?sort=semver&label=version)](https://github.com/rubylode/redmine-theme-amethyst/tags)
+[![license](https://img.shields.io/github/license/rubylode/redmine-theme-amethyst)](https://github.com/rubylode/redmine-theme-amethyst/blob/main/LICENSE)
+![Redmine](https://img.shields.io/badge/Redmine-7.0-b22222)
+
 A light theme for Redmine 7 and up: a white page with cool violet-tinted greys and one violet, a light project sidebar on wide screens, and an issue list laid out as a task list with status circles, priority flags and status group pills.
 
 It is plain CSS plus one small script (`javascripts/theme.js`), with no plugin, no build step and no change to Redmine itself.
