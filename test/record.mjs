@@ -10,7 +10,8 @@ import { spawnSync } from "node:child_process"
 import { mkdirSync, readdirSync, rmSync } from "node:fs"
 import { argumentValue, baseUrl, launch, schemes, signedInContext } from "./lib/browser.mjs"
 
-const size = { width: 1100, height: 700 }
+// 1280 wide, like the page check: at 1100 the project tabs run past the window once the plugins add theirs. The GIF is scaled to 800 either way.
+const size = { width: 1280, height: 815 }
 const demoDir = new URL("../docs/demo/", import.meta.url).pathname
 const videoDir = new URL("../tmp/video/", import.meta.url).pathname
 mkdirSync(demoDir, { recursive: true })

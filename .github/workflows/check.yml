@@ -2,6 +2,8 @@ name: check
 
 # Starts a real Redmine from its Docker image with demo data, then loads every page of the theme in light and dark,
 # at desktop and phone width, and fails on console errors, failed requests, sideways scrolling and low text contrast.
+# The last entry, master, is Redmine's development branch (the line that becomes the next release), built from source by
+# test/redmine-master/Dockerfile. It is allowed to fail: a red master run is an early warning, not a reason to hold a release.
 on:
   push:
   pull_request:
@@ -13,10 +15,11 @@ jobs:
   check:
     name: Redmine ${{ matrix.redmine }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.redmine == 'master' }}
     strategy:
       fail-fast: false
       matrix:
-        redmine: ["7.0.2", "7.0"]
+        redmine: ["7.0.3", "7.0.2", "7.0", "master"]
     env:
       REDMINE_TAG: ${{ matrix.redmine }}
     steps:

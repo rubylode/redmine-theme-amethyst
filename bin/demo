@@ -9,7 +9,7 @@
 #   ruby bin/demo down      stop it, keep the data
 #   ruby bin/demo reset     stop it and wipe the data
 #
-# REDMINE_TAG picks the Redmine version (7.0.2 or 7.0); the default is 7.0.2.
+# REDMINE_TAG picks the Redmine version (7.0.2 or 7.0, or master for the development branch); the default is 7.0.2.
 # The Rubylode plugins the theme dresses are mounted too when a copy is found next to this repository (or in
 # RUBYLODE_PLUGINS_DIR):
 # Projects, Home, To-do, Uptime Kuma, GlitchTip, Windmill, Beszel, Stats and New issue button.
@@ -69,6 +69,13 @@ def write_override
   puts "Plugins: #{available_plugins.map(&:last).join(', ')}"
 end
 
+# REDMINE_TAG=master runs Redmine's development branch: the image is built from test/redmine-master/Dockerfile and used as
+# redmine:master-local. It is built every time, because the branch moves.
+def build_master_image
+  system("docker", "build", "-t", "redmine:master-local", "test/redmine-master", chdir: ROOT) || abort("building the Redmine master image failed")
+  ENV["REDMINE_TAG"] = "master-local"
+end
+
 def wait_until_ready
   uri = URI("http://localhost:#{CONFIG.fetch('port')}/login")
   deadline = Time.now + READY_SECONDS
@@ -90,6 +97,7 @@ end
 
 case ARGV.first
 when "up"
+  build_master_image if ENV["REDMINE_TAG"] == "master"
   write_override
   compose("up", "-d")
   wait_until_ready
