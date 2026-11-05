@@ -2,6 +2,14 @@
 
 All notable changes to this theme. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [2.1.0] - 2026-11-05
+
+No change to how the theme looks. This release carries the build.
+
+### Changed
+
+- The workflows use the current versions of the GitHub actions, and Dependabot sends one grouped update a month instead of one pull request per action.
+
 ## [2.0.3] - 2026-11-03
 
 ### Changed
