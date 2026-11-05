@@ -53,6 +53,19 @@ pre, div.wiki pre, div.pre-wrapper pre, code.syntaxhl, div.wiki code.syntaxhl, d
 }
 div.wiki pre, div.pre-wrapper pre { border: var(--theme-border-width) var(--theme-border-style) var(--theme-line); border-radius: var(--theme-radius-small); padding: 10px 14px; }
 .syntaxhl .k { color: var(--theme-syntax-keyword); }
+/* Code stays on a light plate in every scheme, but Redmine's syntax rules read the greys and blues that the palette remaps to light
+ * values for dark (and that a theme which is dark in its light scheme, such as Azurite, remaps always). Pin the ones they use to
+ * values made for the plate (4.5:1 or better on every theme's plate). */
+.syntaxhl {
+  --oc-gray-5: #5d6670;
+  --oc-gray-6: #566069;
+  --oc-gray-7: #3e4852;
+  --oc-gray-8: #2b333b;
+  --oc-gray-9: #1c2833;
+  --oc-blue-8: #0a5aa3;
+  --oc-blue-9: #0a5aa3;
+  --oc-indigo-9: #3b3f9a;
+}
 .wiki blockquote, blockquote { border-inline-start: 3px solid var(--theme-accent-2); color: var(--theme-ink-soft); }
 .wiki a.wiki-page.new, a.wiki-page.new { color: var(--theme-danger-ink); }
 
@@ -547,6 +560,9 @@ table.list tr.group[data-group-status="6"] span.name::before { background: var(-
 
 /* An overdue due date: Redmine's own red (--oc-red-9) is too dark on a dark surface, so it takes the danger ink. */
 table.list tr.overdue:not(.context-menu-selection) td.due_date { color: var(--theme-danger-ink); }
+/* Overdue links on the Gantt chart: Redmine master colours them --oc-red-8, which is under 4.5:1 on a light surface and unreadable on a dark one.
+ * The body prefix wins over gantt.css, which loads after the theme. */
+body .version-overdue a, body .issue-overdue a, body .project-overdue a { color: var(--theme-danger-ink); }
 
 /* Filters and options: light panels; Apply and Clear as buttons */
 #query_form fieldset, #query_form_with_buttons fieldset {

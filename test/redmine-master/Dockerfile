@@ -17,10 +17,12 @@ RUN set -eux; \
 	tar -xzf /tmp/redmine.tar.gz --strip-components=1 -C /usr/src/redmine; \
 	rm /tmp/redmine.tar.gz; \
 	rm -f Gemfile.lock; \
+	# The official image adds Puma as the server; master lists it only in the test group.
+	echo "gem 'puma'" >> Gemfile; \
 	for adapter in mysql2 postgresql sqlserver sqlite3; do \
 		printf '%s:\n  adapter: %s\n' "$RAILS_ENV" "$adapter" > config/database.yml; \
 		bundle install --jobs "$(nproc)"; \
 	done; \
 	rm config/database.yml; \
 	mkdir -p log public/plugin_assets sqlite tmp/pdf tmp/pids; \
-	chown -R redmine:redmine files log public/plugin_assets sqlite tmp
+	chown -R redmine:redmine /usr/src/redmine

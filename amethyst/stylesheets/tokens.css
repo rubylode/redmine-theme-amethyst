@@ -257,4 +257,9 @@
 
   --color-top-menu-background: var(--theme-header-background-solid);
   --color-header-background: var(--theme-header-background-solid);
+
+  /* Redmine's development branch (the line that becomes the next release) names its muted text colour and uses it where 7.0
+   * wrote --oc-gray-6, and it writes the behind-schedule links in --oc-yellow-8, a bright orange that is below 3:1 on white. */
+  --color-text-muted: var(--theme-neutral-6);
+  --oc-yellow-8: var(--theme-caution-ink);
 }
